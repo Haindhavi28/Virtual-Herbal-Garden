@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Herbal Garden</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pixel-size: 2px;
+            --primary-color: #629554;
+            --secondary-color: #346b24;
+            --accent-color: #ff6b6b;
+            --text-color: #747272;
+            --bg-color: #f5f5f5;
+            --card-bg: #ffffff;
+            --border-radius: 0;
+        }
+        
+        body {
+            font-family: 'VT323', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            image-rendering: pixelated;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+        }
+        
+        .btn, button {
+            font-family: 'Press Start 2P', cursive;
+            border-radius: var(--border-radius);
+            border: 4px solid #000;
+            padding: 8px 16px;
+            font-size: 16px;
+            text-transform: uppercase;
+            position: relative;
+            box-shadow: 4px 4px 0px #000;
+            transition: all 0.1s ease;
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn:hover, button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+        }
+        
+        .btn-secondary {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 4px solid #000;
+            color: #000;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Pixel art borders */
+        .feature-card, .herb-card, .testimonial-card, .blog-card {
+            border: 4px solid #000;
+            background-color: var(--card-bg);
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-card:hover, .herb-card:hover, .testimonial-card:hover, .blog-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.2);
+        }
+        
+        /* Header pixel style */
+        .header {
+            background-color: var(--primary-color);
+            border-bottom: 4px solid #000;
+        }
+        
+        .logo span {
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        /* Hero section css*/
+        .hero {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 60px 0;
+            border-bottom: 4px solid #000;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .feature-icon i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Herb cards css*/
+        .herb-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 4px solid #000;
+        }
+        
+        .herb-price {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            color: var(--accent-color);
+        }
+        
+        /* Testimonials css*/
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 0;
+            border: 4px solid #000;
+        }
+        
+        /* Footer css*/
+        .footer {
+            background-color: var(--secondary-color);
+            color: white;
+            border-top: 4px solid #000;
+        }
+        
+        .footer-links a {
+            color: white;
+        }
+        
+        /* Pixel art loader */
+        .leaf-loader svg {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .leaf-path {
+            fill: none;
+            stroke: var(--primary-color);
+            stroke-width: 4;
+            stroke-linecap: round;
+        }
+        
+        /* Mobile menu toggle */
+        .mobile-menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 4px;
+            background-color: #000;
+            margin: 4px 0;
+        }
+                
+        .herb-card {
+            border: 4px solid #000;
+            background-color: white;
+            padding: 0;
+            width: 250px;
+        }
+
+        .herb-image img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-bottom: 4px solid #000;
+            image-rendering: pixelated;
+        }
+
+        .herb-details {
+            padding: 15px;
+        }
+
+        .herb-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .herb-header h3 {
+            font-size: 18px;
+            margin: 0;
+            color: #000;
+            text-transform: uppercase;
+        }
+
+        .herb-price {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            color: #5a9c47;
+            margin: 0;
+        }
+
+        .herb-scientific {
+            font-style: italic;
+            font-size: 14px;
+            margin: 5px 0 10px;
+            color: #555;
+        }
+
+        .herb-description {
+            font-size: 14px;
+            margin: 10px 0;
+            line-height: 1.4;
+        }
+
+        .herb-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .btn.btn-sm {
+            padding: 5px 10px;
+            font-size: 12px;
+            border-width: 3px;
+        }
+
+        .add-to-cart {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #5a9c47;
+            padding: 5px;
+        }
+        .slider-controls-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .slider-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .slider-prev, .slider-next {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            background-color: var(--primary-color);
+            color: white;
+            border: 3px solid #000;
+        }
+
+        .slider-prev:hover, .slider-next:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .view-all-container {
+            margin-top: 10px;
+        }
+
+        .btn.btn-outline {
+            background-color: transparent;
+            border: 3px solid #000;
+            color: #000;
+            padding: 8px 20px;
+        }
+
+        .btn.btn-outline:hover {
+            background-color: #000;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader --> 
+    <div class="loader-container">
+        <div class="loader">
+            <div class="leaf-loader">
+                <svg viewBox="0 0 100 100">
+                    <path d="M30,90 Q50,10 70,90" class="leaf-path"></path>
+                    <path d="M30,90 Q50,10 70,90" class="leaf-path leaf-path-2"></path>
+                </svg>
+            </div>
+            <p>Growing your experience...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.svg" alt="Virtual Herbal Garden Logo">
+                    <span>Virtual Herbal Garden</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="garden.html">Explore Garden</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <button class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="fade-in">Discover the Healing Power of Nature</h1>
+            <p class="fade-in">Explore our virtual garden of medicinal herbs, learn about their benefits, and bring them into your home.</p>
+            <div class="hero-buttons fade-in">
+                <a href="gardenafterlogin.html" class="btn btn-primary">Explore Garden</a>
+                <a href="shopafterlogin.html" class="btn btn-secondary">Shop Herbs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Discover Our Features</h2>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up">
+                    <div class="feature-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Interactive Garden</h3>
+                    <p>Explore our virtual garden with interactive plants. Click on any family of herbs to learn more about the family and benefits.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Educational Content</h3>
+                    <p>Access detailed information about each herb, including medicinal uses, cultivation tips, and nutritional benefits.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>Easy Ordering</h3>
+                    <p>Purchase your favorite herbs with our seamless shopping experience and secure payment options.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h3>Personal Garden</h3>
+                    <p>Create your own virtual garden by saving herbs you're interested in and tracking your real-life garden progress.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Herbs Section -->
+    <section class="popular-herbs">
+        <div class="container">
+            <h2 class="section-title">Popular Herbs</h2>
+            <div class="herbs-slider">
+                <div class="herbs-track">
+                    <div class="herb-card">
+                        <div class="herb-image">
+                            <img src="lavender.png" alt="Lavender">
+                        </div>
+                        <div class="herb-details">
+                            <div class="herb-header">
+                                <h3>LAVENDER</h3>
+                                <div class="herb-price">$2.99</div>
+                            </div>
+                            <p class="herb-scientific">Lavandula angustifolia</p>
+                            <p class="herb-description">Known for its calming properties and pleasant aroma. Helps with anxiety and sleep issues.</p>
+                            <div class="herb-actions">
+                                <button class="add-to-cart" data-id="1" data-name="Lavender" data-price="2.99">
+                                    <i class="fas fa-shopping-basket"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="herb-card">
+                        <div class="herb-image">
+                            <img src="mint.png" alt="Mint">
+                        </div>
+                        <div class="herb-details">
+                            <h3>Mint</h3>
+                            <p class="herb-scientific">Mentha</p>
+                            <p class="herb-description">Refreshing herb that aids digestion and relieves headaches. Perfect for teas and cooking.</p>
+                            <div class="herb-actions">
+                                <button class="add-to-cart" data-id="2" data-name="Mint" data-price="9.99">
+                                    <i class="fas fa-shopping-basket"></i>
+                                </button>
+                            </div>
+                            <div class="herb-price">$9.99</div>
+                        </div>
+                    </div>
+                    <div class="herb-card">
+                        <div class="herb-image">
+                            <img src="Chamomile.jpg" alt="Chamomile">
+                        </div>
+                        <div class="herb-details">
+                            <div class="herb-header">
+                                <h3>CHAMOMILE</h3>
+                                <div class="herb-price">$2.99</div>
+                            </div>
+                            <p class="herb-scientific">Matricaria chamomilla</p>
+                            <p class="herb-description">Gentle herb known for its calming effects. Helps with sleep and digestive issues.</p>
+                            <div class="herb-actions">
+                                <button class="add-to-cart" data-id="3" data-name="Chamomile" data-price="2.99">
+                                    <i class="fas fa-shopping-basket"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="herb-card">
+                        <div class="herb-image">
+                            <img src="basil.webp" alt="Basil">
+                        </div>
+                        <div class="herb-details">
+                            <h3>Basil</h3>
+                            <p class="herb-scientific">Ocimum basilicum</p>
+                            <p class="herb-description">Aromatic herb with anti-inflammatory properties. Great for cooking and medicinal uses.</p>
+                            <div class="herb-actions">
+                                <button class="add-to-cart" data-id="4" data-name="Basil" data-price="8.99">
+                                    <i class="fas fa-shopping-basket"></i>
+                                </button>
+                            </div>
+                            <div class="herb-price">$8.99</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slider Controls Section -->
+            <div class="slider-controls-container">
+                <div class="slider-controls">
+                    <button class="slider-prev btn btn-sm"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-next btn btn-sm"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="view-all-container">
+                    <a href="shop.html" class="btn btn-outline">VIEW ALL HERBS</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <div class="benefits-content">
+                <h2 class="section-title">Benefits of Herbal Plants</h2>
+                <ul class="benefits-list">
+                    <li data-aos="fade-right">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <h3>Natural Healing</h3>
+                            <p>Herbs provide natural remedies without the side effects of synthetic medications.</p>
+                        </div>
+                    </li>
+                    <li data-aos="fade-right" data-aos-delay="100">
+                        <i class="fas fa-leaf"></i>
+                        <div>
+                            <h3>Environmental Impact</h3>
+                            <p>Growing herbs contributes to biodiversity and helps support local ecosystems.</p>
+                        </div>
+                    </li>
+                    <li data-aos="fade-right" data-aos-delay="200">
+                        <i class="fas fa-utensils"></i>
+                        <div>
+                            <h3>Culinary Enhancement</h3>
+                            <p>Fresh herbs elevate your cooking with vibrant flavors and nutritional benefits.</p>
+                        </div>
+                    </li>
+                    <li data-aos="fade-right" data-aos-delay="300">
+                        <i class="fas fa-home"></i>
+                        <div>
+                            <h3>Home Purification</h3>
+                            <p>Many herbs naturally purify the air and create a healthier living environment.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="benefits-image" data-aos="fade-left">
+                <img src="benefits-illustration.png" alt="Benefits of Herbs" width="75%">
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="testimonials-slider">
+                <div class="testimonial-card" data-aos="fade-up">
+                    <div class="testimonial-content">
+                        <p>I ordered a few herb plants from Virtual Herbal Garden about six months ago, and I have to say, I'm really impressed! The plants arrived in great condition, and the care instructions were super helpful—I'm not exactly a gardening expert, but my little balcony garden is thriving. The basil smells amazing, and the chamomile has been perfect for tea. Definitely ordering again!</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="testimonial-1.svg" alt="Sarah Johnson">
+                        <div>
+                            <h4>Sarah </h4>
+                            <p>Urban Gardener</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-content">
+                        <p>"The interactive garden feature on this site is such a fun and educational tool! My kids absolutely love exploring different herbs and learning about their uses. It's sparked their curiosity so much that we've even started our own little herb garden at home. Such a great way to learn and grow together!</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="testimonial-2.svg" alt="Michael ">
+                        <div>
+                            <h4>Michael Chen</h4>
+                            <p>Parent</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-content">
+                        <p>As a holistic practitioner, I always recommend Virtual Herbal Garden to my clients. The information they provide is reliable, and the quality of their herbs is top-notch. I've had several clients notice real improvements in their sleep after using their chamomile. It's a fantastic resource for anyone looking to incorporate natural remedies into their routine!</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="testimonial-3.svg" alt="Dr. Lisa Patel">
+                        <div>
+                            <h4>Dr. Lisa Patel</h4>
+                            <p>Health Practitioner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Preview Section -->
+    <section class="blog-preview">
+        <div class="container">
+            <h2 class="section-title">Latest from Our Blog</h2>
+            <div class="blog-grid">
+                <article class="blog-card" data-aos="fade-up">
+                    <div class="blog-image">
+                        <img src="blog-1.png" alt="Starting Your Herb Garden">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> May 15, 2023</span>
+                            <span><i class="far fa-user"></i> Emma Wilson</span>
+                        </div>
+                        <h3>Starting Your Herb Garden: A Beginner's Guide</h3>
+                        <p>Learn the essential steps to create your own thriving herb garden, even in limited space.</p>
+                        <a href="blog/starting-herb-garden.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="blog-image">
+                        <img src="blog-2.png" alt="Medicinal Herbs">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> April 28, 2023</span>
+                            <span><i class="far fa-user"></i> Dr. James Miller</span>
+                        </div>
+                        <h3>5 Medicinal Herbs Everyone Should Know About</h3>
+                        <p>Discover the powerful healing properties of these common herbs that you can easily grow at home.</p>
+                        <a href="blog/medicinal-herbs.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="blog-image">
+                        <img src="blog-3.png" alt="Seasonal Herbs">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><i class="far fa-calendar"></i> April 10, 2023</span>
+                            <span><i class="far fa-user"></i> Sofia Garcia</span>
+                        </div>
+                        <h3>Seasonal Herb Growing: What to Plant Now</h3>
+                        <p>A seasonal guide to help you plan your herb garden throughout the year for optimal growth.</p>
+                        <a href="blog/seasonal-herbs.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+            <div class="view-all-container">
+                <a href="blog.html" class="btn btn-outline">View All Articles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Join Our Herbal Community</h2>
+                <p>Subscribe to our newsletter for gardening tips, herb spotlights, and exclusive offers.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+            <div class="newsletter-image">
+                <img src="newsletter-illustration.png" alt="Newsletter" width="70%">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <img src="logo.svg" alt="Virtual Herbal Garden Logo">
+                    <h3>Virtual Herbal Garden</h3>
+                    <p>Connecting people with the healing power of herbs.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="garden.html">Explore Garden</a></li>
+                            <li><a href="shop.html">Shop</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h4>Help & Support</h4>
+                        <ul>
+                            <li><a href="faq.html">FAQs</a></li>
+                            <li><a href="shipping.html">Shipping Policy</a></li>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                        </ul>
+                    </div>        
+                    <div class="footer-links-column">
+                        <h4>Contact Us</h4>
+                        <ul class="contact-info">
+                            <li><i class="fas fa-map-marker-alt"></i> 15 ,Mand Street ,45, Heer Heights, NandiniGarh, Goa, Rajkot-499949</li>
+                            <li><i class="fas fa-phone"></i> +91 8398960956</li>
+                        </ul>
+
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Back to Top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script src="animations.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>

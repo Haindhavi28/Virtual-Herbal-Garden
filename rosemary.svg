@@ -1,0 +1,27 @@
+<svg width="200" height="300" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M100 280C100 280 98 220 98 200C98 180 100 150 100 120" stroke="#5D4037" stroke-width="4" stroke-linecap="round"/>
+  <path d="M100 120C100 120 90 110 85 110C80 110 75 115 75 120C75 125 80 130 85 130C90 130 95 125 100 120Z" fill="#26A69A"/>
+  <path d="M100 120C100 120 110 110 115 110C120 110 125 115 125 120C125 125 120 130 115 130C110 130 105 125 100 120Z" fill="#26A69A"/>
+  <path d="M100 140C100 140 90 130 85 130C80 130 75 135 75 140C75 145 80 150 85 150C90 150 95 145 100 140Z" fill="#26A69A"/>
+  <path d="M100 140C100 140 110 130 115 130C120 130 125 135 125 140C125 145 120 150 115 150C110 150 105 145 100 140Z" fill="#26A69A"/>
+  <path d="M100 160C100 160 90 150 85 150C80 150 75 155 75 160C75 165 80 170 85 170C90 170 95 165 100 160Z" fill="#26A69A"/>
+  <path d="M100 160C100 160 110 150 115 150C120 150 125 155 125 160C125 165 120 170 115 170C110 170 105 165 100 160Z" fill="#26A69A"/>
+  <path d="M100 180C100 180 90 170 85 170C80 170 75 175 75 180C75 185 80 190 85 190C90 190 95 185 100 180Z" fill="#26A69A"/>
+  <path d="M100 180C100 180 110 170 115 170C120 170 125 175 125 180C125 185 120 190 115 190C110 190 105 185 100 180Z" fill="#26A69A"/>
+  <path d="M100 200C100 200 90 190 85 190C80 190 75 195 75 200C75 205 80 210 85 210C90 210 95 205 100 200Z" fill="#26A69A"/>
+  <path d="M100 200C100 200 110 190 115 190C120 190 125 195 125 200C125 205 120 210 115 210C110 210 105 205 100 200Z" fill="#26A69A"/>
+  <path d="M75 120C75 120 80 115 85 115C90 115 95 120 95 120" stroke="#00897B" stroke-width="1" stroke-linecap="round"/>
+  <path d="M125 120C125 120 120 115 115 115C110 115 105 120 105 120" stroke="#00897B" stroke-width="1" stroke-linecap="round"/>
+  <path d="M75 140C75 140 80 135 85 135C90 135 95 140 95 140" stroke="#00897B" stroke-width="1" stroke-linecap="round"/>
+  <path d="M125 140C125 140 120 135 115 135C110 135 105 140 105 140" stroke="#00897B" stroke-width="1" stroke-linecap="round"/>
+  <path d="M75 160C75 160 80 155 85 155C90 155 95 160 95 160" stroke="#00897B" stroke-width="1" stroke-linecap="round"/>
+  <path d="M125 160C125 160 120 155 115 155C110 155 105 160 105 160" stroke="#00897B" stroke-width="1" stroke-linecap="round"/>
+  <path d="M75 180C75 180 80 175 85 175C90 175 95 180 95 180" stroke="#00897B" stroke-width="1" stroke-linecap="round"/>
+  <path d="M125 180C125 180 120 175 115 175C110 175 105 180 105 180" stroke="#00897B" stroke-width="1" stroke-linecap="round"/>
+  <path d="M75 200C75 200 80 195 85 195C90 195 95 200 95 200" stroke="#00897B" stroke-width="1" stroke-linecap="round"/>
+  <path d="M125 200C125 200 120 195 115 195C110 195 105 200 105 200" stroke="#00897B" stroke-width="1" stroke-linecap="round"/>
+  <path d="M90 240C90 240 95 230 100 230C105 230 110 240 110 240" stroke="#5D4037" stroke-width="2" stroke-linecap="round"/>
+  <path d="M85 260C85 260 95 250 100 250C105 250 115 260 115 260" stroke="#5D4037" stroke-width="2" stroke-linecap="round"/>
+  <path d="M80 280C80 280 95 270 100 270C105 270 120 280 120 280" stroke="#5D4037" stroke-width="2" stroke-linecap="round"/>
+</svg>
+

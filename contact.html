@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Virtual Herbal Garden</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pixel-size: 2px;
+            --primary-color: #629554;
+            --secondary-color: #346b24;
+            --accent-color: #ff6b6b;
+            --text-color: #747272;
+            --bg-color: #f5f5f5;
+            --card-bg: #ffffff;
+            --border-radius: 0;
+        }
+
+        body {
+            font-family: 'VT323', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            image-rendering: pixelated;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+        }
+
+        .btn,
+        button {
+            font-family: 'Press Start 2P', cursive;
+            border-radius: var(--border-radius);
+            border: 4px solid #000;
+            padding: 8px 16px;
+            font-size: 16px;
+            text-transform: uppercase;
+            position: relative;
+            box-shadow: 4px 4px 0px #000;
+            transition: all 0.1s ease;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn:hover,
+        button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent-color);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 4px solid #000;
+            color: #000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Pixel art borders */
+        .feature-card,
+        .contact-info-card,
+        .faq-item,
+        .contact-form-container {
+            border: 4px solid #000;
+            background-color: var(--card-bg);
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .feature-card:hover,
+        .contact-info-card:hover,
+        .faq-item:hover,
+        .contact-form-container:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Header pixel style */
+        .header {
+            background-color: var(--primary-color);
+            border-bottom: 4px solid #000;
+        }
+
+        .logo span {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        /* Contact Hero Section */
+        .contact-hero {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 60px 0;
+            border-bottom: 4px solid #000;
+            text-align: center;
+        }
+
+        .contact-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        /* Contact Info Grid */
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .contact-info-card {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .contact-link {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Contact Form Section */
+        .contact-form-section {
+            padding: 40px 0;
+        }
+
+        .contact-form-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 30px;
+        }
+
+        .contact-form-image img {
+            width: 100%;
+            height: auto;
+            border: 4px solid #000;
+            image-rendering: pixelated;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 4px solid #000;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-group input {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 40px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .faq-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .faq-item {
+            padding: 20px;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .faq-question h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .faq-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .faq-answer {
+            display: none;
+            padding-top: 15px;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 40px 0;
+        }
+
+        .map-container {
+            border: 4px solid #000;
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 40px 0;
+            border-top: 4px solid #000;
+            border-bottom: 4px solid #000;
+        }
+
+        .newsletter .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 10px;
+            border: 4px solid #000;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+        }
+
+        .newsletter-image img {
+            width: 100%;
+            height: auto;
+            border: 4px solid #000;
+            image-rendering: pixelated;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--secondary-color);
+            color: white;
+            border-top: 4px solid #000;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+
+            .contact-form-container,
+            .newsletter .container,
+            .faq-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form-image,
+            .newsletter-image {
+                order: -1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loader -->
+    <div class="loader-container">
+        <div class="loader">
+            <div class="leaf-loader">
+                <svg viewBox="0 0 100 100">
+                    <path d="M30,90 Q50,10 70,90" class="leaf-path"></path>
+                    <path d="M30,90 Q50,10 70,90" class="leaf-path leaf-path-2"></path>
+                </svg>
+            </div>
+            <p>Growing your experience...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.svg" alt="Virtual Herbal Garden Logo">
+                    <span>Virtual Herbal Garden</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="garden.html">Explore Garden</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <a href="login.html" class="login-btn">Login</a>
+                <button class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contact Hero Section -->
+    <section class="contact-hero">
+        <div class="container">
+            <div class="contact-hero-content">
+                <h1>GET IN TOUCH</h1>
+                <p>We'd love to hear from you! Reach out with questions, feedback, or just to say hello.</p>
+                <div class="hero-buttons">
+                    <a href="#contact-form" class="btn btn-primary">SEND MESSAGE</a>
+                    <a href="#faq-section" class="btn btn-secondary">VIEW FAQ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section class="contact-info-section">
+        <div class="container">
+            <h2 class="section-title">HOW TO REACH US</h2>
+            <div class="contact-info-grid">
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>VISIT US</h3>
+                    <p>123 Garden Street<br>Greenville, GA 30222<br>United States</p>
+                    <a href="https://maps.google.com" target="_blank" class="btn btn-sm">VIEW MAP</a>
+                </div>
+
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>CALL US</h3>
+                    <p>Main: (555) 123-4567<br>Support: (555) 987-6543<br>Mon-Fri, 9am-5pm EST</p>
+                    <a href="tel:+15551234567" class="btn btn-sm">CALL NOW</a>
+                </div>
+
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>EMAIL US</h3>
+                    <p>General: info@virtualherbal.com<br>Support: help@virtualherbal.com<br>Orders:
+                        orders@virtualherbal.com</p>
+                    <a href="mailto:info@virtualherbal.com" class="btn btn-sm">SEND EMAIL</a>
+                </div>
+
+                <div class="contact-info-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>LIVE CHAT</h3>
+                    <p>Chat with our herbal experts<br>Available Mon-Fri<br>10am-4pm EST</p>
+                    <button class="btn btn-sm chat-btn">START CHAT</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section" id="contact-form">
+        <div class="container">
+            <div class="contact-form-container">
+                <div class="contact-form-content">
+                    <h2>SEND US A MESSAGE</h2>
+                    <p>Have a question about our products, need gardening advice, or want to share your herbal journey?
+                        Fill out the form below and we'll get back to you as soon as possible.</p>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">YOUR NAME</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">EMAIL ADDRESS</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">PHONE NUMBER (OPTIONAL)</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">SUBJECT</label>
+                            <select id="subject" name="subject" required>
+                                <option value="" disabled selected>Select a subject</option>
+                                <option value="product-inquiry">PRODUCT INQUIRY</option>
+                                <option value="order-status">ORDER STATUS</option>
+                                <option value="gardening-advice">GARDENING ADVICE</option>
+                                <option value="feedback">FEEDBACK</option>
+                                <option value="other">OTHER</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">YOUR MESSAGE</label>
+                            <textarea id="message" name="message" placeholder="Type your message here..." rows="5"
+                                required></textarea>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="newsletter" name="newsletter">
+                            <label for="newsletter">Subscribe to our newsletter for gardening tips and exclusive
+                                offers</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">SEND MESSAGE</button>
+                    </form>
+                </div>
+
+                <div class="contact-form-image">
+                    <img src="contact us.png" alt="Contact Us">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq-section">
+        <div class="container">
+            <h2 class="section-title">FREQUENTLY ASKED QUESTIONS</h2>
+            <p class="section-subtitle">Find quick answers to common questions about our products and services.</p>
+
+            <div class="faq-container">
+                <div class="faq-column">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>HOW DO I TRACK MY ORDER?</h3>
+                            <button class="faq-toggle"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Once your order ships, you'll receive a tracking number via email. You can also track
+                                your order by logging into your account and viewing your order history. If you have any
+                                issues, please contact our customer support team.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>WHAT IS YOUR RETURN POLICY?</h3>
+                            <button class="faq-toggle"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We accept returns within 30 days of delivery for most products. Plants and seeds must be
+                                unopened and in their original packaging. Please visit our <a
+                                    href="returns.html">Returns & Refunds</a> page for complete details and
+                                instructions.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>DO YOU SHIP INTERNATIONALLY?</h3>
+                            <button class="faq-toggle"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, we ship to most countries worldwide. However, please note that some plant products
+                                may be restricted in certain regions due to agricultural regulations. Shipping costs and
+                                delivery times vary by location.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-column">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>HOW DO I CARE FOR MY HERBS?</h3>
+                            <button class="faq-toggle"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Each herb has specific care requirements, which you can find on the product page and in
+                                the care guide included with your purchase. You can also explore our <a
+                                    href="garden.html">Virtual Garden</a> for detailed growing information or visit our
+                                <a href="blog.html">Blog</a> for care tips.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>ARE YOUR PRODUCTS ORGANIC?</h3>
+                            <button class="faq-toggle"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, all our herbs and seeds are grown using organic methods. We're committed to
+                                sustainable farming practices and never use synthetic pesticides or fertilizers. Many of
+                                our products are certified organic, which is indicated on the product page.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>CAN I VISIT YOUR GARDEN IN PERSON?</h3>
+                            <button class="faq-toggle"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! We offer guided tours of our herb farm by appointment. We also host seasonal
+                                workshops and events. Check our <a href="events.html">Events</a> page for upcoming
+                                opportunities or contact us to schedule a visit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="more-questions">
+                <p>Don't see your question here? <a href="#contact-form" class="btn btn-sm">CONTACT US</a> or check our
+                    <a href="faq.html" class="btn btn-sm">COMPLETE FAQ</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>JOIN OUR HERBAL COMMUNITY</h2>
+                <p>Subscribe to our newsletter for gardening tips, herb spotlights, and exclusive offers.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn btn-primary">SUBSCRIBE</button>
+                </form>
+            </div>
+            <div class="newsletter-image">
+                <img src="newsletter-illustration.png" alt="Newsletter">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <img src="logo.svg" alt="Virtual Herbal Garden Logo">
+                    <h3>Virtual Herbal Garden</h3>
+                    <p>Healing the world with the power of Herbs...</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="garden.html">Explore Garden</a></li>
+                            <li><a href="shop.html">Shop</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column"></div>
+
+                    <div class="footer-links-column">
+                        <h4>Contact Us</h4>
+                        <ul class="contact-info">
+                            <li><i class="fas fa-map-marker-alt"></i> 15 ,Mand Street ,45, Heer Heights, NandiniGarh, Goa, Rajkot-499949</li>
+                            <li><i class="fas fa-phone"></i> +91 8398960956</li>
+                        </ul>
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Virtual Herbal Garden. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Back to Top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script src="animations.js"></script>
+    <script src="cart.js"></script>
+    <script>
+        // FAQ Toggle Functionality
+        document.querySelectorAll('.faq-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const answer = toggle.closest('.faq-question').nextElementSibling;
+                answer.classList.toggle('active');
+                toggle.innerHTML = answer.classList.contains('active') ?
+                    '<i class="fas fa-minus"></i>' : '<i class="fas fa-plus"></i>';
+            });
+        });
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // Chat Button Functionality
+        document.querySelector('.chat-btn').addEventListener('click', function () {
+            const now = new Date();
+            const hours = now.getHours();
+            const day = now.getDay();
+
+            // Check if it's weekday and business hours
+            if (day >= 1 && day <= 5 && hours >= 10 && hours < 16) {
+                alert('Connecting you to a live agent...');
+            } else {
+                alert('Our live chat is currently unavailable. Please try again during business hours (Mon-Fri, 10am-4pm EST) or send us an email.');
+            }
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+
+</html>

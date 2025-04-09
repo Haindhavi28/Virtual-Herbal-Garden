@@ -1,0 +1,18 @@
+<svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M75 140C75 140 73 100 73 90C73 80 75 60 75 40" stroke="#5D4037" stroke-width="3" stroke-linecap="round"/>
+  <path d="M75 40C75 40 65 30 60 30C55 30 50 35 50 40C50 45 55 50 60 50C65 50 70 45 75 40Z" fill="#8E6DE0"/>
+  <path d="M75 40C75 40 85 30 90 30C95 30 100 35 100 40C100 45 95 50 90 50C85 50 80 45 75 40Z" fill="#8E6DE0"/>
+  <path d="M75 60C75 60 65 50 60 50C55 50 50 55 50 60C50 65 55 70 60 70C65 70 70 65 75 60Z" fill="#9C7CF2"/>
+  <path d="M75 60C75 60 85 50 90 50C95 50 100 55 100 60C100 65 95 70 90 70C85 70 80 65 75 60Z" fill="#9C7CF2"/>
+  <path d="M75 80C75 80 65 70 60 70C55 70 50 75 50 80C50 85 55 90 60 90C65 90 70 85 75 80Z" fill="#A98DF9"/>
+  <path d="M75 80C75 80 85 70 90 70C95 70 100 75 100 80C100 85 95 90 90 90C85 90 80 85 75 80Z" fill="#A98DF9"/>
+  <path d="M50 40C50 40 55 35 60 35C65 35 70 40 70 40" stroke="#7B1FA2" stroke-width="1" stroke-linecap="round"/>
+  <path d="M100 40C100 40 95 35 90 35C85 35 80 40 80 40" stroke="#7B1FA2" stroke-width="1" stroke-linecap="round"/>
+  <path d="M50 60C50 60 55 55 60 55C65 55 70 60 70 60" stroke="#7B1FA2" stroke-width="1" stroke-linecap="round"/>
+  <path d="M100 60C100 60 95 55 90 55C85 55 80 60 80 60" stroke="#7B1FA2" stroke-width="1" stroke-linecap="round"/>
+  <path d="M50 80C50 80 55 75 60 75C65 75 70 80 70 80" stroke="#7B1FA2" stroke-width="1" stroke-linecap="round"/>
+  <path d="M100 80C100 80 95 75 90 75C85 75 80 80 80 80" stroke="#7B1FA2" stroke-width="1" stroke-linecap="round"/>
+  <path d="M65 120C65 120 70 110 75 110C80 110 85 120 85 120" stroke="#5D4037" stroke-width="2" stroke-linecap="round"/>
+  <path d="M60 140C60 140 70 130 75 130C80 130 90 140 90 140" stroke="#5D4037" stroke-width="2" stroke-linecap="round"/>
+</svg>
+

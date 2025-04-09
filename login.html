@@ -1,0 +1,1111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Virtual Herbal Garden</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pixel-size: 2px;
+            --primary-color: #629554;
+            --secondary-color: #346b24;
+            --accent-color: #ff6b6b;
+            --text-color: #747272;
+            --bg-color: #f5f5f5;
+            --card-bg: #ffffff;
+            --border-radius: 0;
+        }
+
+        body {
+            font-family: 'VT323', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            image-rendering: pixelated;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+        }
+
+        .btn,
+        button {
+            font-family: 'Press Start 2P', cursive;
+            border-radius: var(--border-radius);
+            border: 4px solid #000;
+            padding: 8px 16px;
+            font-size: 16px;
+            text-transform: uppercase;
+            position: relative;
+            box-shadow: 4px 4px 0px #000;
+            transition: all 0.1s ease;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+        }
+
+        .btn:hover,
+        button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent-color);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 4px solid #000;
+            color: #000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Loader styles */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader {
+            text-align: center;
+        }
+
+        .leaf-loader svg {
+            width: 50px;
+            height: 50px;
+        }
+
+        .leaf-path {
+            fill: none;
+            stroke: var(--primary-color);
+            stroke-width: 4;
+            stroke-linecap: round;
+            animation: leaf-animate 1.5s infinite ease-in-out;
+        }
+
+        .leaf-path-2 {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes leaf-animate {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Header styles */
+        .header {
+            background-color: var(--primary-color);
+            border-bottom: 4px solid #000;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo span {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-nav li {
+            margin-left: 20px;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover {
+            color: white;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-icon {
+            position: relative;
+            margin-right: 20px;
+            color: #000;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .login-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+        }
+
+        .login-btn.active {
+            background-color: var(--accent-color);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            padding: 5px;
+            margin-left: 15px;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 4px;
+            background-color: #000;
+            margin: 4px 0;
+        }
+
+        /* Auth Section */
+        .auth-section {
+            padding: 60px 0;
+        }
+
+        .auth-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .auth-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .auth-image img {
+            max-width: 100%;
+            height: auto;
+            image-rendering: pixelated;
+        }
+
+        .auth-form-container {
+            flex: 1;
+            max-width: 450px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 4px solid #000;
+        }
+
+        .auth-tab {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            cursor: pointer;
+            position: relative;
+            color: var(--text-color);
+        }
+
+        .auth-tab.active {
+            color: #000;
+            background-color: var(--primary-color);
+        }
+
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--accent-color);
+        }
+
+        .auth-form {
+            display: none;
+            border: 4px solid #000;
+            background-color: var(--card-bg);
+            padding: 30px;
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .auth-form h2 {
+            margin-top: 0;
+            color: #000;
+            font-size: 24px;
+        }
+
+        .auth-form p {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 18px;
+            color: #000;
+        }
+
+        .input-icon-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            border: 4px solid #000;
+            background-color: white;
+        }
+
+        .input-icon-wrapper i {
+            padding: 0 15px;
+            color: var(--text-color);
+        }
+
+        .input-icon-wrapper input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            outline: none;
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+        }
+
+        .toggle-password {
+            background: none;
+            border: none;
+            padding: 0 15px;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me input {
+            margin-right: 8px;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary-color);
+        }
+
+        .forgot-password {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .social-login {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .social-login p {
+            position: relative;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+
+        .social-login p::before,
+        .social-login p::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 2px;
+            background-color: #000;
+        }
+
+        .social-login p::before {
+            left: 0;
+        }
+
+        .social-login p::after {
+            right: 0;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            font-size: 14px;
+            background-color: white;
+            color: #000;
+        }
+
+        .social-btn.google {
+            border-color: #DB4437;
+        }
+
+        .social-btn.facebook {
+            border-color: #4267B2;
+        }
+
+        .password-strength {
+            margin-top: 10px;
+        }
+
+        .strength-meter {
+            height: 8px;
+            background-color: #ddd;
+            border: 2px solid #000;
+            margin-bottom: 5px;
+        }
+
+        .strength-meter span {
+            display: block;
+            height: 100%;
+            width: 0;
+            background-color: red;
+            transition: width 0.3s, background-color 0.3s;
+        }
+
+        .strength-text {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .strength-text span {
+            color: red;
+        }
+
+        .terms-agreement {
+            display: flex;
+            align-items: center;
+        }
+
+        .terms-agreement input {
+            margin-right: 8px;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary-color);
+        }
+
+        .terms-agreement label {
+            font-size: 14px;
+        }
+
+        .terms-agreement a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .terms-agreement a:hover {
+            text-decoration: underline;
+        }
+
+        /* Success message */
+        .success-message {
+            display: none;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 2px solid #000;
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: var(--secondary-color);
+            color: white;
+            border-top: 4px solid #000;
+            padding: 40px 0 20px;
+        }
+
+        .footer-top {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+
+        .footer-logo p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .footer-links {
+            flex: 2;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer-links-column {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .footer-links-column h4 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: white;
+        }
+
+        .footer-links-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links-column li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links-column a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .footer-links-column a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .contact-info i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 18px;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+
+        .payment-methods {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .payment-methods i {
+            font-size: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .auth-container {
+                flex-direction: column;
+            }
+
+            .auth-image {
+                display: none;
+            }
+
+            .auth-form-container {
+                width: 100%;
+            }
+
+            .main-nav {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loader -->
+    <div class="loader-container">
+        <div class="loader">
+            <div class="leaf-loader">
+                <svg viewBox="0 0 100 100">
+                    <path class="leaf-path" d="M30,50 Q50,10 70,50 Q50,90 30,50"></path>
+                    <path class="leaf-path leaf-path-2" d="M50,30 Q90,50 50,70 Q10,50 50,30"></path>
+                </svg>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.svg" alt="Virtual Herbal Garden Logo">
+                    <span>Virtual Herbal Garden</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="garden.html">Explore Garden</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <a href="login.html" class="login-btn">Login</a>
+                <button class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Auth Section -->
+    <section class="auth-section">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-image">
+                    <img src="login.jpg.jpg" alt="Login Illustration">
+                </div>
+                <div class="auth-form-container">
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" data-tab="login">Login</button>
+                        <button class="auth-tab" data-tab="register">Register</button>
+                    </div>
+
+                    <!-- Login Form -->
+                    <div class="auth-form login-form active">
+                        <div id="login-success" class="success-message">
+                            Login successful! Redirecting to dashboard...
+                        </div>
+                        
+                        <h2>Welcome Back</h2>
+                        <p>Sign in to access your account and continue your herbal journey.</p>
+
+                        <form id="login-form">
+                            <div class="form-group">
+                                <label for="login-email">Email Address</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" id="login-email" placeholder="Your email address">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="login-password">Password</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" id="login-password" placeholder="Your password">
+                                    <button type="button" class="toggle-password">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-options">
+                                <div class="remember-me">
+                                    <input type="checkbox" id="remember-me">
+                                    <label for="remember-me">Remember me</label>
+                                </div>
+                                <a href="forgot-password.html" class="forgot-password">Forgot Password?</a>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        </form>
+
+                        <div class="social-login">
+                            <p>Or sign in with</p>
+                            <div class="social-buttons">
+                                <button class="social-btn google">
+                                    <i class="fab fa-google"></i>
+                                    <span>Google</span>
+                                </button>
+                                <button class="social-btn facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                    <span>Facebook</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Register Form -->
+                    <div class="auth-form register-form">
+                        <div id="register-success" class="success-message">
+                            Registration successful! Please check your email to verify your account.
+                        </div>
+                        
+                        <h2>Create an Account</h2>
+                        <p>Join our community and start your herbal journey today.</p>
+
+                        <form id="register-form">
+                            <div class="form-group">
+                                <label for="register-name">Full Name</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="register-name" placeholder="Your full name">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="register-email">Email Address</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-envelope"></i>
+                                    <input type="email" id="register-email" placeholder="Your email address">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="register-password">Password</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" id="register-password" placeholder="Create a password">
+                                    <button type="button" class="toggle-password">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="password-strength">
+                                    <div class="strength-meter">
+                                        <span></span>
+                                    </div>
+                                    <p class="strength-text">Password strength: <span>Weak</span></p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="register-confirm-password">Confirm Password</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" id="register-confirm-password"
+                                        placeholder="Confirm your password">
+                                </div>
+                            </div>
+
+                            <div class="form-options">
+                                <div class="terms-agreement">
+                                    <input type="checkbox" id="terms-agreement">
+                                    <label for="terms-agreement">I agree to the <a href="terms.html">Terms of
+                                            Service</a> and <a href="privacy.html">Privacy Policy</a></label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                        </form>
+
+                        <div class="social-login">
+                            <p>Or sign up with</p>
+                            <div class="social-buttons">
+                                <button class="social-btn google">
+                                    <i class="fab fa-google"></i>
+                                    <span>Google</span>
+                                </button>
+                                <button class="social-btn facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                    <span>Facebook</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <img src="logo.svg" alt="Virtual Herbal Garden Logo">
+                    <h3>Virtual Herbal Garden</h3>
+                    <p>Healing the world with the power of Herbs...</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="garden.html">Explore Garden</a></li>
+                            <li><a href="shop.html">Shop</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column"></div>
+
+                    <div class="footer-links-column">
+                        <h4>Contact Us</h4>
+                        <ul class="contact-info">
+                            <li><i class="fas fa-map-marker-alt"></i> 15 ,Mand Street ,45, Heer Heights, NandiniGarh, Goa, Rajkot-499949</li>
+                            <li><i class="fas fa-phone"></i> +91 8398960956</li>
+                        </ul>
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Virtual Herbal Garden. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Loader timeout
+            setTimeout(function() {
+                const loader = document.querySelector('.loader-container');
+                if (loader) {
+                    loader.style.display = 'none';
+                }
+            }, 1000);
+
+            // Tab switching functionality
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and forms
+                    document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+
+                    // Add active class to clicked tab and corresponding form
+                    this.classList.add('active');
+                    const tabName = this.getAttribute('data-tab');
+                    document.querySelector(`.${tabName}-form`).classList.add('active');
+                    
+                    // Hide any success messages when switching tabs
+                    document.querySelectorAll('.success-message').forEach(msg => {
+                        msg.classList.remove('show');
+                    });
+                });
+            });
+
+            // Toggle password visibility
+            document.querySelectorAll('.toggle-password').forEach(button => {
+                button.addEventListener('click', function() {
+                    const input = this.parentElement.querySelector('input');
+                    const icon = this.querySelector('i');
+
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        input.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    }
+                });
+            });
+
+            // Password strength indicator
+            const passwordInput = document.getElementById('register-password');
+            if (passwordInput) {
+                passwordInput.addEventListener('input', function() {
+                    const strengthMeter = document.querySelector('.strength-meter span');
+                    const strengthText = document.querySelector('.strength-text span');
+                    const password = this.value;
+                    let strength = 0;
+
+                    // Check password length
+                    if (password.length >= 8) strength++;
+                    if (password.length >= 12) strength++;
+
+                    // Check for mixed case
+                    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+
+                    // Check for numbers
+                    if (/\d/.test(password)) strength++;
+
+                    // Check for special characters
+                    if (/[^a-zA-Z0-9]/.test(password)) strength++;
+
+                    // Update strength meter
+                    let width = 0;
+                    let color = 'red';
+                    let text = 'Weak';
+
+                    if (strength >= 4) {
+                        width = '100%';
+                        color = 'green';
+                        text = 'Strong';
+                    } else if (strength >= 2) {
+                        width = '66%';
+                        color = 'orange';
+                        text = 'Medium';
+                    } else if (strength >= 1) {
+                        width = '33%';
+                    }
+
+                    strengthMeter.style.width = width;
+                    strengthMeter.style.backgroundColor = color;
+                    strengthText.textContent = text;
+                    strengthText.style.color = color;
+                });
+            }
+
+            // Form submission for login - FIXED
+            const loginForm = document.getElementById('login-form');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const email = document.getElementById('login-email').value.trim();
+                    const password = document.getElementById('login-password').value.trim();
+                    
+                    // Basic validation
+                    if (!email || !password) {
+                        alert('Please fill in all fields');
+                        return;
+                    }
+                    
+                    // Show success message
+                    const successMessage = document.getElementById('login-success');
+                    successMessage.classList.add('show');
+                    
+                    // Clear form fields
+                    this.reset();
+                    
+                    // Simulate redirect after login (in a real app, this would redirect to dashboard)
+                    setTimeout(function() {
+                        window.location.href = 'index.html'; // Redirect to home page
+                    }, 2000);
+                });
+            }
+
+            // Form submission for registration - FIXED
+            const registerForm = document.getElementById('register-form');
+            if (registerForm) {
+                registerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('register-name').value.trim();
+                    const email = document.getElementById('register-email').value.trim();
+                    const password = document.getElementById('register-password').value.trim();
+                    const confirmPassword = document.getElementById('register-confirm-password').value.trim();
+                    const termsAgreed = document.getElementById('terms-agreement').checked;
+                    
+                    // Basic validation
+                    if (!name || !email || !password || !confirmPassword) {
+                        alert('Please fill in all fields');
+                        return;
+                    }
+                    
+                    if (password !== confirmPassword) {
+                        alert('Passwords do not match');
+                        return;
+                    }
+                    
+                    if (!termsAgreed) {
+                        alert('Please agree to the Terms of Service and Privacy Policy');
+                        return;
+                    }
+                    
+                    // Show success message
+                    const successMessage = document.getElementById('register-success');
+                    successMessage.classList.add('show');
+                    
+                    // Clear form fields
+                    this.reset();
+                    
+                    // Reset password strength indicator
+                    document.querySelector('.strength-meter span').style.width = '0';
+                    document.querySelector('.strength-text span').textContent = 'Weak';
+                    document.querySelector('.strength-text span').style.color = 'red';
+                    
+                    // Switch to login tab after successful registration (after showing success message)
+                    setTimeout(function() {
+                        document.querySelector('.auth-tab[data-tab="login"]').click();
+                    }, 3000);
+                });
+            }
+
+            // Social login buttons
+            document.querySelectorAll('.social-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const provider = this.classList.contains('google') ? 'Google' : 'Facebook';
+                    alert(`Redirecting to ${provider} login...`);
+                });
+            });
+
+            // Mobile menu toggle
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    const mainNav = document.querySelector('.main-nav');
+                    if (mainNav) {
+                        mainNav.classList.toggle('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

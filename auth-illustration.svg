@@ -1,0 +1,17 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" rx="20" fill="#4a7c59" fill-opacity="0.1"/>
+  <rect x="120" y="80" width="160" height="140" rx="10" fill="white" stroke="#4a7c59" stroke-width="2"/>
+  <circle cx="200" cy="120" r="20" fill="#E0E0E0"/>
+  <path d="M170 170C170 170 185 150 200 150C215 150 230 170 230 170L170 170Z" fill="#E0E0E0"/>
+  <rect x="160" y="180" width="80" height="10" rx="5" fill="#a4c3a2"/>
+  <rect x="180" y="200" width="40" height="10" rx="5" fill="#a4c3a2"/>
+  <circle cx="100" cy="80" r="20" fill="#f4b942"/>
+  <circle cx="300" cy="80" r="15" fill="#f4b942"/>
+  <circle cx="100" cy="220" r="15" fill="#f4b942"/>
+  <circle cx="300" cy="220" r="20" fill="#f4b942"/>
+  <path d="M80 150C80 150 100 130 120 130" stroke="#4a7c59" stroke-width="2" stroke-linecap="round"/>
+  <path d="M320 150C320 150 300 130 280 130" stroke="#4a7c59" stroke-width="2" stroke-linecap="round"/>
+  <path d="M80 170C80 170 100 190 120 190" stroke="#4a7c59" stroke-width="2" stroke-linecap="round"/>
+  <path d="M320 170C320 170 300 190 280 190" stroke="#4a7c59" stroke-width="2" stroke-linecap="round"/>
+</svg>
+

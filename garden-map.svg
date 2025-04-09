@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600">
+  <style>
+    .background {
+      fill: #f9f9f7;
+    }
+    .path {
+      fill: none;
+      stroke: #a4c3b2;
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .garden-bed {
+      fill: #6a9c79;
+      stroke: #4a7c59;
+      stroke-width: 3;
+    }
+    .water {
+      fill: #a4d8e6;
+      stroke: #7ab8c8;
+      stroke-width: 2;
+    }
+    .structure {
+      fill: #d9c5b4;
+      stroke: #b3a090;
+      stroke-width: 2;
+    }
+    .tree {
+      fill: #6a9c79;
+      stroke: #4a7c59;
+      stroke-width: 2;
+    }
+  </style>
+  
+  <!-- Background -->
+  <rect class="background" width="1000" height="600" />
+  
+  <!-- Garden Beds -->
+  <rect class="garden-bed" x="100" y="150" width="200" height="150" rx="10" />
+  <rect class="garden-bed" x="400" y="150" width="200" height="150" rx="10" />
+  <rect class="garden-bed" x="700" y="150" width="200" height="150" rx="10" />
+  <rect class="garden-bed" x="100" y="350" width="200" height="150" rx="10" />
+  <rect class="garden-bed" x="400" y="350" width="200" height="150" rx="10" />
+  <rect class="garden-bed" x="700" y="350" width="200" height="150" rx="10" />
+  
+  <!-- Paths -->
+  <path class="path" d="M50,225 H950 M50,425 H950 M200,50 V550 M500,50 V550 M800,50 V550" />
+  
+  <!-- Pond -->
+  <ellipse class="water" cx="500" cy="500" rx="100" ry="50" />
+  
+  <!-- Gazebo -->
+  <circle class="structure" cx="500" cy="100" r="40" />
+  
+  <!-- Trees -->
+  <circle class="tree" cx="50" cy="50" r="30" />
+  <circle class="tree" cx="950" cy="50" r="30" />
+  <circle class="tree" cx="50" cy="550" r="30" />
+  <circle class="tree" cx="950" cy="550" r="30" />
+</svg>
+

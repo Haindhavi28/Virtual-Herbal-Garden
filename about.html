@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Virtual Herbal Garden</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pixel-size: 2px;
+            --primary-color: #629554;
+            --secondary-color: #346b24;
+            --accent-color: #ff6b6b;
+            --text-color: #747272;
+            --bg-color: #f5f5f5;
+            --card-bg: #ffffff;
+            --border-radius: 0;
+        }
+
+        body {
+            font-family: 'VT323', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            image-rendering: pixelated;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+        }
+
+        .btn,
+        button {
+            font-family: 'Press Start 2P', cursive;
+            border-radius: var(--border-radius);
+            border: 4px solid #000;
+            padding: 8px 16px;
+            font-size: 16px;
+            text-transform: uppercase;
+            position: relative;
+            box-shadow: 4px 4px 0px #000;
+            transition: all 0.1s ease;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn:hover,
+        button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        /* About Hero Section */
+        .about-hero {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 60px 0;
+            border-bottom: 4px solid #000;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        /* Our Mission Section */
+        .our-mission {
+            padding: 40px 0;
+            background-color: var(--bg-color);
+            border-bottom: 4px solid #000;
+        }
+
+        .mission-content {
+            background-color: var(--card-bg);
+            border: 4px solid #000;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .mission-image img {
+            width: 100%;
+            border: 4px solid #000;
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Our Story Section */
+        .our-story {
+            padding: 40px 0;
+            background-color: var(--card-bg);
+            border-bottom: 4px solid #000;
+        }
+
+        .story-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .story-timeline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background-color: var(--primary-color);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 4px solid #000;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background-color: var(--card-bg);
+            border: 4px solid #000;
+            padding: 15px;
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: auto;
+        }
+
+        .timeline-content img {
+            width: 100%;
+            border: 4px solid #000;
+            margin-top: 10px;
+        }
+
+        /* Our Values Section */
+        .our-values {
+            padding: 40px 0;
+            background-color: var(--bg-color);
+            border-bottom: 4px solid #000;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .value-card {
+            background-color: var(--card-bg);
+            border: 4px solid #000;
+            padding: 20px;
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .value-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .value-icon i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Team Section */
+        .our-team {
+            padding: 40px 0;
+            background-color: var(--card-bg);
+            border-bottom: 4px solid #000;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .team-member {
+            background-color: var(--card-bg);
+            border: 4px solid #000;
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .team-member:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .member-image {
+            height: 200px;
+            overflow: hidden;
+            border-bottom: 4px solid #000;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            image-rendering: pixelated;
+        }
+
+        .member-info {
+            padding: 15px;
+        }
+
+        .member-title {
+            color: var(--primary-color);
+            margin: 5px 0 10px;
+        }
+
+        .member-social {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .member-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background-color: var(--bg-color);
+            color: #000;
+            border: 2px solid #000;
+            transition: all 0.2s ease;
+        }
+
+        .member-social a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .story-timeline::before {
+                left: 30px;
+            }
+
+            .timeline-marker {
+                left: 30px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 70px);
+                margin-left: 70px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loader -->
+    <div class="loader-container">
+        <div class="loader">
+            <div class="leaf-loader">
+                <svg viewBox="0 0 100 100">
+                    <path d="M30,90 Q50,10 70,90" class="leaf-path"></path>
+                    <path d="M30,90 Q50,10 70,90" class="leaf-path leaf-path-2"></path>
+                </svg>
+            </div>
+            <p>Growing your experience...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.svg" alt="Virtual Herbal Garden Logo">
+                    <span>Virtual Herbal Garden</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="garden.html">Explore Garden</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <a href="login.html" class="login-btn">Login</a>
+                <button class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <!-- About Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <div class="about-hero-content">
+                <h1>Our Story</h1>
+                <p>Discover the passion and purpose behind Virtual Herbal Garden</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Mission Section -->
+    <section class="our-mission">
+        <div class="container">
+            <div class="mission-content">
+                <h2>Our Mission</h2>
+                <p>To connect people with the healing power of herbs and promote sustainable, natural living through
+                    education and high-quality herbal products.</p>
+                <p>At Virtual Herbal Garden, we believe that nature provides everything we need to live healthy,
+                    balanced lives. Our mission is to make herbal knowledge and products accessible to everyone,
+                    regardless of where they live or their gardening experience.</p>
+            </div>
+            <div class="mission-image">
+                <center>
+                    <img src="mission.png" alt="Our Mission" style="width: min-content;">
+                </center>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="our-story">
+        <div class="container">
+            <h2 class="section-title">How It All Began</h2>
+            <div class="story-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <span>2015</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>The Seed is Planted</h3>
+                        <p>Virtual Herbal Garden began as a small site run by our founder, who wanted to share their    
+                            passion for medicinal herbs with others.</p>
+                        <img src="timeline-1.png" alt="The Seed is Planted">
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <span>2017</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Growing Our Community</h3>
+                        <p>As the website gained popularity, we partnered with botanists and herbalists to expand the
+                            educational content and begin offering workshops.</p>
+                        <img src="timeline-2.png" alt="Growing Our Community">
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <span>2019</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Launching the Garden</h3>
+                        <p>We launched our online shop, offering carefully selected herbs, seeds, and gardening
+                            supplies, along with our interactive virtual garden.</p>
+                        <img src="timeline-3.png" alt="Launching the Garden">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Values Section -->
+    <section class="our-values">
+        <div class="container">
+            <h2 class="section-title">Our Core Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Sustainability</h3>
+                    <p>We're committed to environmentally responsible practices in everything we do.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Education</h3>
+                    <p>We believe in empowering people through knowledge about herbs and their uses.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Wellness</h3>
+                    <p>We're dedicated to promoting holistic health through the natural healing power of herbs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="our-team">
+        <div class="container">
+            <h2 class="section-title">Meet Our Team</h2>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="team-harshith.jpg" alt="Harshith">
+                    </div>
+                    <div class="member-info">
+                        <h3>Harshith</h3>
+                        <p class="member-title">Founder & Developer</p>
+                        <p>With a passion for both technology and herbalism, Harshith created the Virtual Herbal Garden
+                            platform.</p>
+                        <div class="member-social">
+                            <a href="https://linkedin.com/in/harshith" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                            <a href="https://github.com/harshith" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="team-haindhavi.jpg" alt="Haindhavi">
+                    </div>
+                    <div class="member-info">
+                        <h3>Haindhavi</h3>
+                        <p class="member-title">Herbalist & Educator</p>
+                        <p>Haindhavi brings extensive knowledge of medicinal plants and creates our educational content.
+                        </p>
+                        <div class="member-social">
+                            <a href="https://linkedin.com/in/haindhavi" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                            <a href="https://instagram.com/haindhavi" aria-label="Instagram"><i
+                                    class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="team-lohitha.jpg" alt="Lohitha">
+                    </div>
+                    <div class="member-info">
+                        <h3>Lohitha</h3>
+                        <p class="member-title">Designer & Community Manager</p>
+                        <p>Lohitha designs our visual elements and engages with our growing community of herb
+                            enthusiasts.</p>
+                        <div class="member-social">
+                            <a href="https://linkedin.com/in/lohitha" aria-label="LinkedIn"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                            <a href="https://twitter.com/lohitha" aria-label="Twitter"><i
+                                    class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <img src="logo.svg" alt="Virtual Herbal Garden Logo">
+                    <h3>Virtual Herbal Garden</h3>
+                    <p>Healing the world with the power of Herbs...</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="garden.html">Explore Garden</a></li>
+                            <li><a href="shop.html">Shop</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column"></div>
+
+                    <div class="footer-links-column">
+                        <h4>Contact Us</h4>
+                        <ul class="contact-info">
+                            <li><i class="fas fa-map-marker-alt"></i> 15 ,Mand Street ,45, Heer Heights, NandiniGarh, Goa, Rajkot-499949</li>
+                            <li><i class="fas fa-phone"></i> +91 8398960956</li>
+                        </ul>
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Virtual Herbal Garden. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Back to Top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script src="animations.js"></script>
+    <script src="cart.js"></script>
+</body>
+
+</html>

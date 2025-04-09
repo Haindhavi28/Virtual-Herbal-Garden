@@ -1,0 +1,2340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Virtual Herbal Garden</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pixel-size: 2px;
+            --primary-color: #629554;
+            --secondary-color: #346b24;
+            --accent-color: #ff6b6b;
+            --text-color: #747272;
+            --bg-color: #f5f5f5;
+            --card-bg: #ffffff;
+            --border-radius: 0;
+        }
+
+        body {
+            font-family: 'VT323', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            image-rendering: pixelated;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+        }
+
+        .btn,
+        button {
+            font-family: 'Press Start 2P', cursive;
+            border-radius: var(--border-radius);
+            border: 4px solid #000;
+            padding: 8px 16px;
+            font-size: 16px;
+            text-transform: uppercase;
+            position: relative;
+            box-shadow: 4px 4px 0px #000;
+            transition: all 0.1s ease;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn:hover,
+        button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent-color);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 4px solid #000;
+            color: #000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header pixel style */
+        .header {
+            background-color: var(--primary-color);
+            border-bottom: 4px solid #000;
+        }
+
+        .logo span {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        /* Shop Hero Section */
+        .shop-hero {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 60px 0;
+            border-bottom: 4px solid #000;
+            text-align: center;
+        }
+
+        .shop-hero h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        /* Shop Filters */
+        .shop-filters {
+            background-color: var(--bg-color);
+            padding: 20px 0;
+            border-bottom: 4px solid #000;
+        }
+
+        .filters-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-toggle button {
+            background-color: var(--primary-color);
+            color: white;
+            border: 4px solid #000;
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .active-filters {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-tag {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            border: 3px solid #000;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .remove-filter {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .clear-filters {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .sort-container select {
+            border: 4px solid #000;
+            padding: 8px;
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            background-color: white;
+        }
+
+        /* Shop Content */
+        .shop-content {
+            padding: 40px 0;
+        }
+
+        .shop-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+
+        /* Sidebar */
+        .shop-sidebar {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .sidebar-filters {
+            background-color: white;
+            border: 4px solid #000;
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .filter-group {
+            padding: 15px;
+            border-bottom: 4px solid #000;
+        }
+
+        .filter-group:last-child {
+            border-bottom: none;
+        }
+
+        .filter-group h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .filter-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .filter-checkbox input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* Product Grid */
+        .product-grid-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-count {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .product-card {
+            background-color: white;
+            border: 4px solid #000;
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .product-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            font-size: 12px;
+            font-family: 'Press Start 2P', cursive;
+            border: 3px solid #000;
+            z-index: 1;
+        }
+
+        .product-badge.bestseller {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .product-badge.sale {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .product-badge.new {
+            background-color: #ffd700;
+            color: #000;
+        }
+
+        .product-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            border-bottom: 4px solid #000;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            image-rendering: pixelated;
+        }
+
+        .product-actions {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover .product-actions {
+            opacity: 1;
+        }
+
+        .quick-view-btn,
+        .add-to-cart-btn {
+            padding: 8px;
+            font-size: 14px;
+            border: 3px solid #000;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+        }
+
+        .quick-view-btn {
+            background-color: white;
+            color: #000;
+        }
+
+        .add-to-cart-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            margin-bottom: 5px;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .product-category {
+            font-size: 14px;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .product-rating i {
+            color: #ffd700;
+        }
+
+        .product-price {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 16px;
+            color: var(--primary-color);
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: var(--text-color);
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .pagination-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            border: 3px solid #000;
+            background-color: white;
+            color: #000;
+        }
+
+        .pagination-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Modal */
+        .product-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .product-modal-content {
+            background-color: white;
+            border: 4px solid #000;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent-color);
+            color: white;
+            border: 3px solid #000;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .product-modal-body {
+            padding: 20px;
+        }
+
+        .product-modal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .product-modal-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .product-main-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border: 4px solid #000;
+            image-rendering: pixelated;
+        }
+
+        .product-thumbnails {
+            display: flex;
+            gap: 10px;
+        }
+
+        .thumbnail {
+            width: 60px;
+            height: 60px;
+            border: 3px solid #000;
+            cursor: pointer;
+        }
+
+        .thumbnail.active {
+            border-color: var(--primary-color);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            image-rendering: pixelated;
+        }
+
+        .product-modal-info h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .product-scientific {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .product-price-container {
+            margin: 15px 0;
+        }
+
+        .product-description {
+            margin-bottom: 20px;
+        }
+
+        .product-features h3 {
+            margin-bottom: 10px;
+        }
+
+        .product-features ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .product-quantity {
+            margin-bottom: 20px;
+        }
+
+        .quantity-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .quantity-input input {
+            width: 60px;
+            padding: 5px;
+            text-align: center;
+            border: 3px solid #000;
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+        }
+
+        .quantity-decrease,
+        .quantity-increase {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            background-color: var(--primary-color);
+            color: white;
+            border: 3px solid #000;
+            cursor: pointer;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .wishlist-btn {
+            background-color: white;
+            color: #000;
+            border: 3px solid #000;
+        }
+
+        .product-meta p {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        /* Notification */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .notification {
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 3px solid #000;
+            background-color: white;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .shop-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .shop-sidebar {
+                position: static;
+                margin-bottom: 30px;
+            }
+
+            .product-modal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-main-image img {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.svg" alt="Virtual Herbal Garden Logo">
+                    <span>Virtual Herbal Garden</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="garden.html">Explore Garden</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <a href="login.html" class="login-btn">Login</a>
+                <button class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <!-- Shop Hero Section -->
+    <section class="shop-hero">
+        <div class="container">
+            <div class="shop-hero-content">
+                <h1>SHOP OUR HERBAL COLLECTION</h1>
+                <p>Discover our carefully curated selection of high-quality herbal plants, seeds, and products. Each
+                    item is sustainably sourced and grown with care to ensure the best quality for your health and
+                    garden.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Filters -->
+    <section class="shop-filters">
+        <div class="container">
+            <div class="filters-container">
+                <div class="filter-toggle">
+                    <button id="filter-toggle-btn">
+                        <i class="fas fa-filter"></i> FILTERS
+                    </button>
+                </div>
+                <div class="active-filters">
+                    <span class="active-filter-label">ACTIVE FILTERS:</span>
+                    <div class="active-filter-tags" id="active-filter-tags">
+                        <!-- Active filters will appear here -->
+                    </div>
+                    <button class="clear-filters" id="clear-filters">CLEAR ALL</button>
+                </div>
+                <div class="sort-container">
+                    <label for="sort-select">SORT BY:</label>
+                    <select id="sort-select">
+                        <option value="featured">FEATURED</option>
+                        <option value="price-low">PRICE: LOW TO HIGH</option>
+                        <option value="price-high">PRICE: HIGH TO LOW</option>
+                        <option value="name-asc">NAME: A-Z</option>
+                        <option value="name-desc">NAME: Z-A</option>
+                        <option value="newest">NEWEST</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Content -->
+    <section class="shop-content">
+        <div class="container">
+            <div class="shop-layout">
+                <!-- Sidebar Filters -->
+                <aside class="shop-sidebar">
+                    <div class="sidebar-filters">
+                        <div class="filter-group">
+                            <h3>CATEGORIES</h3>
+                            <ul class="filter-options">
+                                <li>
+                                    <label class="filter-checkbox">
+                                        <input type="checkbox" name="category" value="medicinal" checked>
+                                        <span class="filter-label">MEDICINAL HERBS</span>
+                                        <span class="filter-count">(24)</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="filter-checkbox">
+                                        <input type="checkbox" name="category" value="culinary">
+                                        <span class="filter-label">CULINARY HERBS</span>
+                                        <span class="filter-count">(18)</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="filter-checkbox">
+                                        <input type="checkbox" name="category" value="aromatic">
+                                        <span class="filter-label">AROMATIC HERBS</span>
+                                        <span class="filter-count">(12)</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="filter-checkbox">
+                                        <input type="checkbox" name="category" value="decorative">
+                                        <span class="filter-label">DECORATIVE HERBS</span>
+                                        <span class="filter-count">(9)</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="filter-checkbox">
+                                        <input type="checkbox" name="category" value="seeds">
+                                        <span class="filter-label">SEEDS & SEEDLINGS</span>
+                                        <span class="filter-count">(15)</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="filter-checkbox">
+                                        <input type="checkbox" name="category" value="accessories">
+                                        <span class="filter-label">GARDENING ACCESSORIES</span>
+                                        <span class="filter-count">(7)</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="filter-group">
+                            <h3>PRICE RANGE</h3>
+                            <div class="price-range-slider">
+                                <div class="price-inputs">
+                                    <div class="price-input">
+                                        <label for="min-price">MIN</label>
+                                        <div class="input-wrapper">
+                                            <span class="currency">$</span>
+                                            <input type="number" id="min-price" value="0" min="0" max="100">
+                                        </div>
+                                    </div>
+                                    <div class="price-input">
+                                        <label for="max-price">MAX</label>
+                                        <div class="input-wrapper">
+                                            <span class="currency">$</span>
+                                            <input type="number" id="max-price" value="50" min="0" max="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" id="price-range-min" min="0" max="100" value="0" step="1">
+                                    <input type="range" id="price-range-max" min="0" max="100" value="50" step="1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <h3>GROWING DIFFICULTY</h3>
+                            <ul class="filter-options">
+                                <li>
+                                    <label class="filter-checkbox">
+                                        <input type="checkbox" name="difficulty" value="easy">
+                                        <span class="filter-label">EASY</span>
+                                        <span class="filter-count">(20)</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="filter-checkbox">
+                                        <input type="checkbox" name="difficulty" value="moderate">
+                                        <span class="filter-label">MODERATE</span>
+                                        <span class="filter-count">(15)</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="filter-checkbox">
+                                        <input type="checkbox" name="difficulty" value="challenging">
+                                        <span class="filter-label">CHALLENGING</span>
+                                        <span class="filter-count">(8)</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="filter-group">
+                            <h3>LIGHT REQUIREMENTS</h3>
+                            <ul class="filter-options">
+                                <li>
+                                    <label class="filter-checkbox">
+                                        <input type="checkbox" name="light" value="full-sun">
+                                        <span class="filter-label">FULL SUN</span>
+                                        <span class="filter-count">(18)</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="filter-checkbox">
+                                        <input type="checkbox" name="light" value="partial-shade">
+                                        <span class="filter-label">PARTIAL SHADE</span>
+                                        <span class="filter-count">(14)</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="filter-checkbox">
+                                        <input type="checkbox" name="light" value="full-shade">
+                                        <span class="filter-label">FULL SHADE</span>
+                                        <span class="filter-count">(6)</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Product Grid -->
+                <div class="product-grid-container">
+                    <div class="product-count">
+                        <p>SHOWING <span id="product-count">36</span> PRODUCTS</p>
+                    </div>
+
+                    <div class="product-grid">
+                        <!-- Original Products -->
+                        <!-- Product 1 -->
+                        <div class="product-card" data-difficulty="easy" data-light="full-sun">
+                            <div class="product-badge bestseller">BESTSELLER</div>
+                            <div class="product-image">
+                                <img src="lavender.png" alt="Lavender Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="lavender">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="1" data-name="Lavender Plant"
+                                        data-price="12.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">LAVENDER PLANT</h3>
+                                <p class="product-category">Medicinal, Aromatic</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span>(42)</span>
+                                </div>
+                                <p class="product-price">$12.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 2 -->
+                        <div class="product-card" data-difficulty="easy" data-light="partial-shade">
+                            <div class="product-image">
+                                <img src="mint.png" alt="Mint Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="mint">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="2" data-name="Mint Plant"
+                                        data-price="9.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">MINT PLANT</h3>
+                                <p class="product-category">Culinary, Medicinal</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(28)</span>
+                                </div>
+                                <p class="product-price">$9.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Product 3 -->
+                        <div class="product-card" data-difficulty="moderate" data-light="full-sun">
+                            <div class="product-badge sale">SALE</div>
+                            <div class="product-image">
+                                <img src="Chamomile.jpg" alt="Chamomile Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="chamomile">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="3" data-name="Chamomile Plant"
+                                        data-price="11.49">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">CHAMOMILE PLANT</h3>
+                                <p class="product-category">Medicinal</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>(36)</span>
+                                </div>
+                                <p class="product-price"><span class="original-price">$14.99</span> $11.49</p>
+                            </div>
+                        </div>
+
+                        <!-- Medicinal Herbs -->
+                        <!-- Ashwagandha -->
+                        <div class="product-card" data-difficulty="moderate" data-light="full-sun">
+                            <div class="product-badge new">NEW</div>
+                            <div class="product-image">
+                                <img src="anise hyssop.png" alt="Ashwagandha Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="ashwagandha">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="13" data-name="Ashwagandha Plant"
+                                        data-price="14.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">ASHWAGANDHA PLANT</h3>
+                                <p class="product-category">Medicinal</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(18)</span>
+                                </div>
+                                <p class="product-price">$14.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Gotu Kola -->
+                        <div class="product-card" data-difficulty="moderate" data-light="partial-shade">
+                            <div class="product-image">
+                                <img src="baylaurel.png" alt="Gotu Kola Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="gotu-kola">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="14" data-name="Gotu Kola Plant"
+                                        data-price="12.49">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">GOTU KOLA PLANT</h3>
+                                <p class="product-category">Medicinal</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(15)</span>
+                                </div>
+                                <p class="product-price">$12.49</p>
+                            </div>
+                        </div>
+
+                        <!-- Yarrow -->
+                        <div class="product-card" data-difficulty="easy" data-light="full-sun">
+                            <div class="product-image">
+                                <img src="bergamot.png" alt="Yarrow Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="yarrow">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="15" data-name="Yarrow Plant"
+                                        data-price="10.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">YARROW PLANT</h3>
+                                <p class="product-category">Medicinal</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(22)</span>
+                                </div>
+                                <p class="product-price">$10.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Feverfew -->
+                        <div class="product-card" data-difficulty="easy" data-light="full-sun">
+                            <div class="product-image">
+                                <img src="borage.png" alt="Feverfew Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="feverfew">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="16" data-name="Feverfew Plant"
+                                        data-price="9.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">FEVERFEW PLANT</h3>
+                                <p class="product-category">Medicinal</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(19)</span>
+                                </div>
+                                <p class="product-price">$9.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Culinary Herbs -->
+                        <!-- Sage -->
+                        <div class="product-card" data-difficulty="easy" data-light="full-sun">
+                            <div class="product-image">
+                                <img src="catnip.png" alt="Sage Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="sage">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="17" data-name="Sage Plant"
+                                        data-price="8.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">SAGE PLANT</h3>
+                                <p class="product-category">Culinary</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(24)</span>
+                                </div>
+                                <p class="product-price">$8.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Bay Laurel -->
+                        <div class="product-card" data-difficulty="moderate" data-light="partial-shade">
+                            <div class="product-image">
+                                <img src="chervil.png" alt="Bay Laurel Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="bay-laurel">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="18" data-name="Bay Laurel Plant"
+                                        data-price="15.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">BAY LAUREL PLANT</h3>
+                                <p class="product-category">Culinary</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(16)</span>
+                                </div>
+                                <p class="product-price">$15.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Tarragon -->
+                        <div class="product-card" data-difficulty="moderate" data-light="partial-shade">
+                            <div class="product-image">
+                                <img src="feverfew.png" alt="Tarragon Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="tarragon">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="19" data-name="Tarragon Plant"
+                                        data-price="11.49">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">TARRAGON PLANT</h3>
+                                <p class="product-category">Culinary</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(14)</span>
+                                </div>
+                                <p class="product-price">$11.49</p>
+                            </div>
+                        </div>
+
+                        <!-- Winter Savory -->
+                        <div class="product-card" data-difficulty="easy" data-light="full-sun">
+                            <div class="product-image">
+                                <img src="lovage.png" alt="Winter Savory Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="winter-savory">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="20" data-name="Winter Savory Plant"
+                                        data-price="9.49">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">WINTER SAVORY PLANT</h3>
+                                <p class="product-category">Culinary</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(12)</span>
+                                </div>
+                                <p class="product-price">$9.49</p>
+                            </div>
+                        </div>
+
+                        <!-- Aromatic Herbs -->
+                        <!-- Bergamot -->
+                        <div class="product-card" data-difficulty="moderate" data-light="full-sun">
+                            <div class="product-image">
+                                <img src="pineapple sage.png" alt="Bergamot Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="bergamot">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="21" data-name="Bergamot Plant"
+                                        data-price="12.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">BERGAMOT PLANT</h3>
+                                <p class="product-category">Aromatic</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(17)</span>
+                                </div>
+                                <p class="product-price">$12.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Catnip -->
+                        <div class="product-card" data-difficulty="easy" data-light="partial-shade">
+                            <div class="product-image">
+                                <img src="purple basil.png" alt="Catnip Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="catnip">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="22" data-name="Catnip Plant"
+                                        data-price="8.49">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">CATNIP PLANT</h3>
+                                <p class="product-category">Aromatic</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(23)</span>
+                                </div>
+                                <p class="product-price">$8.49</p>
+                            </div>
+                        </div>
+
+                        <!-- Sweet Woodruff -->
+                        <div class="product-card" data-difficulty="moderate" data-light="full-shade">
+                            <div class="product-image">
+                                <img src="red veined sorrel.png" alt="Sweet Woodruff Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="sweet-woodruff">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="23" data-name="Sweet Woodruff Plant"
+                                        data-price="10.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">SWEET WOODRUFF PLANT</h3>
+                                <p class="product-category">Aromatic</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(11)</span>
+                                </div>
+                                <p class="product-price">$10.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Anise Hyssop -->
+                        <div class="product-card" data-difficulty="easy" data-light="full-sun">
+                            <div class="product-image">
+                                <img src="sweet woodruff.png" alt="Anise Hyssop Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="anise-hyssop">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="24" data-name="Anise Hyssop Plant"
+                                        data-price="9.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">ANISE HYSSOP PLANT</h3>
+                                <p class="product-category">Aromatic</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(19)</span>
+                                </div>
+                                <p class="product-price">$9.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Decorative Herbs -->
+                        <!-- Purple Basil -->
+                        <div class="product-card" data-difficulty="easy" data-light="full-sun">
+                            <div class="product-badge new">NEW</div>
+                            <div class="product-image">
+                                <img src="tarragon.png" alt="Purple Basil Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="purple-basil">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="25" data-name="Purple Basil Plant"
+                                        data-price="9.49">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">PURPLE BASIL PLANT</h3>
+                                <p class="product-category">Decorative, Culinary</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(15)</span>
+                                </div>
+                                <p class="product-price">$9.49</p>
+                            </div>
+                        </div>
+
+                        <!-- Pineapple Sage -->
+                        <div class="product-card" data-difficulty="moderate" data-light="full-sun">
+                            <div class="product-image">
+                                <img src="valerian.png" alt="Pineapple Sage Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="pineapple-sage">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="26" data-name="Pineapple Sage Plant"
+                                        data-price="11.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">PINEAPPLE SAGE PLANT</h3>
+                                <p class="product-category">Decorative, Aromatic</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(14)</span>
+                                </div>
+                                <p class="product-price">$11.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Red-veined Sorrel -->
+                        <div class="product-card" data-difficulty="easy" data-light="partial-shade">
+                            <div class="product-image">
+                                <img src="variegated oregano.png" alt="Red-veined Sorrel Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="red-veined-sorrel">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="27" data-name="Red-veined Sorrel Plant"
+                                        data-price="10.49">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">RED-VEINED SORREL PLANT</h3>
+                                <p class="product-category">Decorative, Culinary</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(13)</span>
+                                </div>
+                                <p class="product-price">$10.49</p>
+                            </div>
+                        </div>
+
+                        <!-- Variegated Oregano -->
+                        <div class="product-card" data-difficulty="easy" data-light="full-sun">
+                            <div class="product-image">
+                                <img src="winter Savory.png" alt="Variegated Oregano Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="variegated-oregano">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="28" data-name="Variegated Oregano Plant"
+                                        data-price="9.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">VARIEGATED OREGANO PLANT</h3>
+                                <p class="product-category">Decorative, Culinary</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(16)</span>
+                                </div>
+                                <p class="product-price">$9.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Seeds & Seedlings -->
+                        <!-- Parsley -->
+                        <div class="product-card" data-difficulty="easy" data-light="partial-shade">
+                            <div class="product-image">
+                                <img src="yarrow.png" alt="Parsley Seeds">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="parsley">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="29" data-name="Parsley Seeds"
+                                        data-price="4.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">PARSLEY SEEDS</h3>
+                                <p class="product-category">Seeds & Seedlings, Culinary</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>(25)</span>
+                                </div>
+                                <p class="product-price">$4.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Mustard Greens -->
+                        <div class="product-card" data-difficulty="easy" data-light="full-sun">
+                            <div class="product-image">
+                                <img src="lemongrass.png" alt="Mustard Greens Seeds">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="mustard-greens">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="30" data-name="Mustard Greens Seeds"
+                                        data-price="5.49">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">MUSTARD GREENS SEEDS</h3>
+                                <p class="product-category">Seeds & Seedlings, Culinary</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(18)</span>
+                                </div>
+                                <p class="product-price">$5.49</p>
+                            </div>
+                        </div>
+
+                        <!-- Lovage -->
+                        <div class="product-card" data-difficulty="moderate" data-light="partial-shade">
+                            <div class="product-image">
+                                <img src="echinacea.png" alt="Lovage Seeds">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="lovage">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="31" data-name="Lovage Seeds"
+                                        data-price="6.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">LOVAGE SEEDS</h3>
+                                <p class="product-category">Seeds & Seedlings, Culinary</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(12)</span>
+                                </div>
+                                <p class="product-price">$6.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Arugula -->
+                        <div class="product-card" data-difficulty="easy" data-light="partial-shade">
+                            <div class="product-image">
+                                <img src="calendula.png" alt="Arugula Seeds">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="arugula">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="32" data-name="Arugula Seeds"
+                                        data-price="4.49">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">ARUGULA SEEDS</h3>
+                                <p class="product-category">Seeds & Seedlings, Culinary</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>(29)</span>
+                                </div>
+                                <p class="product-price">$4.49</p>
+                            </div>
+                        </div>
+
+                        <!-- Gardening Accessories -->
+                        <!-- Borage -->
+                        <div class="product-card" data-difficulty="easy" data-light="full-sun">
+                            <div class="product-image">
+                                <img src="lemon balm.png" alt="Borage Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="borage">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="33" data-name="Borage Plant"
+                                        data-price="8.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">BORAGE PLANT</h3>
+                                <p class="product-category">Gardening Accessories, Medicinal</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(20)</span>
+                                </div>
+                                <p class="product-price">$8.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Chervil -->
+                        <div class="product-card" data-difficulty="moderate" data-light="partial-shade">
+                            <div class="product-image">
+                                <img src="basil.webp" alt="Chervil Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="chervil">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="34" data-name="Chervil Plant"
+                                        data-price="7.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">CHERVIL PLANT</h3>
+                                <p class="product-category">Gardening Accessories, Culinary</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(15)</span>
+                                </div>
+                                <p class="product-price">$7.99</p>
+                            </div>
+                        </div>
+
+                        <!-- Valerian -->
+                        <div class="product-card" data-difficulty="moderate" data-light="full-sun">
+                            <div class="product-image">
+                                <img src="Chamomile.jpg" alt="Valerian Plant">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="valerian">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="35" data-name="Valerian Plant"
+                                        data-price="12.49">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">VALERIAN PLANT</h3>
+                                <p class="product-category">Gardening Accessories, Medicinal</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <span>(17)</span>
+                                </div>
+                                <p class="product-price">$12.49</p>
+                            </div>
+                        </div>
+
+                        <!-- Sunflower -->
+                        <div class="product-card" data-difficulty="easy" data-light="full-sun">
+                            <div class="product-badge bestseller">BESTSELLER</div>
+                            <div class="product-image">
+                                <img src="oregano.jpg" alt="Sunflower Seeds">
+                                <div class="product-actions">
+                                    <button class="quick-view-btn" data-product="sunflower">QUICK VIEW</button>
+                                    <button class="add-to-cart-btn" data-id="36" data-name="Sunflower Seeds"
+                                        data-price="5.99">ADD TO CART</button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h3 class="product-title">SUNFLOWER SEEDS</h3>
+                                <p class="product-category">Gardening Accessories, Decorative</p>
+                                <div class="product-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span>(32)</span>
+                                </div>
+                                <p class="product-price">$5.99</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Quick View Modal -->
+    <div class="product-modal" id="product-modal">
+        <div class="product-modal-content">
+            <button class="close-modal"><i class="fas fa-times"></i></button>
+            <div class="product-modal-body">
+                <!-- Content will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+   <!-- Footer -->
+   <footer class="footer">
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-logo">
+                <img src="logo.svg" alt="Virtual Herbal Garden Logo">
+                <h3>Virtual Herbal Garden</h3>
+                <p>Healing the world with the power of Herbs...</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-links-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="garden.html">Explore Garden</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-column"></div>
+
+                <div class="footer-links-column">
+                    <h4>Contact Us</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 15 ,Mand Street ,45, Heer Heights, NandiniGarh, Goa, Rajkot-499949</li>
+                        <li><i class="fas fa-phone"></i> +91 8398960956</li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Virtual Herbal Garden. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Back to Top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize cart
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            updateCartCount();
+
+            // Initialize shop filters
+            initShopFilters();
+
+            // Initialize price range slider
+            initPriceRangeSlider();
+
+            // Initialize product sorting
+            initProductSorting();
+
+            // Initialize product modal
+            initProductModal();
+
+            // Initialize pagination
+            initPagination();
+
+            // Initialize add to cart buttons
+            initAddToCartButtons();
+
+            // Initialize mobile menu toggle
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const mainNav = document.querySelector('.main-nav');
+
+            if (mobileMenuToggle && mainNav) {
+                mobileMenuToggle.addEventListener('click', function () {
+                    mainNav.classList.toggle('active');
+                    this.classList.toggle('active');
+                });
+            }
+
+            // Back to top button
+            const backToTopButton = document.getElementById('back-to-top');
+            if (backToTopButton) {
+                window.addEventListener('scroll', function () {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.style.display = 'block';
+                    } else {
+                        backToTopButton.style.display = 'none';
+                    }
+                });
+
+                backToTopButton.addEventListener('click', function () {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+
+            // Add to cart functionality
+            function initAddToCartButtons() {
+                const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+
+                if (addToCartButtons.length > 0) {
+                    addToCartButtons.forEach((button) => {
+                        button.addEventListener("click", function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            const id = this.getAttribute("data-id");
+                            const name = this.getAttribute("data-name");
+                            const price = Number.parseFloat(this.getAttribute("data-price"));
+
+                            addToCart(id, name, price, 1);
+                            showNotification(`${name} added to cart!`, "success");
+                        });
+                    });
+                }
+            }
+
+            function addToCart(id, name, price, quantity) {
+                // Get current cart from localStorage
+                const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+                // Check if item already exists in cart
+                const existingItemIndex = cart.findIndex((item) => item.id === id);
+
+                if (existingItemIndex !== -1) {
+                    // Update quantity if item exists
+                    cart[existingItemIndex].quantity += quantity;
+                } else {
+                    // Add new item if it doesn't exist
+                    cart.push({
+                        id: id,
+                        name: name,
+                        price: price,
+                        quantity: quantity,
+                    });
+                }
+
+                // Save updated cart to localStorage
+                localStorage.setItem("cart", JSON.stringify(cart));
+
+                // Update cart count
+                updateCartCount();
+            }
+
+            function updateCartCount() {
+                const cartCountElements = document.querySelectorAll(".cart-count");
+
+                if (cartCountElements.length > 0) {
+                    // Get cart from localStorage
+                    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+                    // Calculate total quantity
+                    const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+
+                    // Update all cart count elements
+                    cartCountElements.forEach((element) => {
+                        element.textContent = totalQuantity;
+                    });
+                }
+            }
+
+            // Shop filters functionality
+            function initShopFilters() {
+                const filterToggleBtn = document.getElementById('filter-toggle-btn');
+                const shopSidebar = document.querySelector('.shop-sidebar');
+                const filterCheckboxes = document.querySelectorAll('.filter-checkbox input[type="checkbox"]');
+                const activeFilterTags = document.getElementById('active-filter-tags');
+                const clearFiltersBtn = document.getElementById('clear-filters');
+                const productCards = document.querySelectorAll('.product-card');
+                const productCount = document.getElementById('product-count');
+
+                // Toggle sidebar on mobile
+                if (filterToggleBtn && shopSidebar) {
+                    filterToggleBtn.addEventListener('click', () => {
+                        shopSidebar.classList.toggle('active');
+                        document.body.style.overflow = shopSidebar.classList.contains("active") ? "hidden" : "";
+                    });
+                }
+
+                // Handle filter checkboxes
+                if (filterCheckboxes.length > 0) {
+                    filterCheckboxes.forEach(checkbox => {
+                        checkbox.addEventListener('change', () => {
+                            updateActiveFilters();
+                            filterProducts();
+                        });
+                    });
+                }
+
+                // Clear all filters
+                if (clearFiltersBtn) {
+                    clearFiltersBtn.addEventListener('click', () => {
+                        filterCheckboxes.forEach(checkbox => {
+                            checkbox.checked = false;
+                        });
+                        updateActiveFilters();
+                        filterProducts();
+                    });
+                }
+
+                // Update active filter tags
+                function updateActiveFilters() {
+                    if (activeFilterTags) {
+                        activeFilterTags.innerHTML = '';
+                        let hasActiveFilters = false;
+
+                        filterCheckboxes.forEach(checkbox => {
+                            if (checkbox.checked) {
+                                hasActiveFilters = true;
+                                const filterName = checkbox.parentElement.querySelector('.filter-label').textContent;
+                                const filterTag = document.createElement('span');
+                                filterTag.className = 'filter-tag';
+                                filterTag.innerHTML = `${filterName} <button class="remove-filter" data-filter="${checkbox.name}" data-value="${checkbox.value}"><i class="fas fa-times"></i></button>`;
+                                activeFilterTags.appendChild(filterTag);
+
+                                // Add event listener to remove button
+                                const removeBtn = filterTag.querySelector('.remove-filter');
+                                removeBtn.addEventListener('click', function () {
+                                    const filterName = this.getAttribute('data-filter');
+                                    const filterValue = this.getAttribute('data-value');
+                                    const checkbox = document.querySelector(`input[name="${filterName}"][value="${filterValue}"]`);
+                                    if (checkbox) {
+                                        checkbox.checked = false;
+                                        updateActiveFilters();
+                                        filterProducts();
+                                    }
+                                });
+                            }
+                        });
+
+                        // Show/hide clear all button
+                        if (clearFiltersBtn) {
+                            clearFiltersBtn.style.display = hasActiveFilters ? 'block' : 'none';
+                        }
+                    }
+                }
+
+                // Filter products
+                function filterProducts() {
+                    if (productCards.length > 0) {
+                        // Get selected filters
+                        const selectedFilters = {
+                            category: [],
+                            difficulty: [],
+                            light: []
+                        };
+
+                        filterCheckboxes.forEach(checkbox => {
+                            if (checkbox.checked) {
+                                selectedFilters[checkbox.name].push(checkbox.value);
+                            }
+                        });
+
+                        // Get price range
+                        const minPrice = parseFloat(document.getElementById('min-price').value) || 0;
+                        const maxPrice = parseFloat(document.getElementById('max-price').value) || 100;
+
+                        // Filter products
+                        let visibleCount = 0;
+
+                        productCards.forEach(card => {
+                            let shouldShow = true;
+
+                            // Check category filter
+                            if (selectedFilters.category.length > 0) {
+                                const productCategory = card.querySelector('.product-category').textContent.toLowerCase();
+                                const categoryMatch = selectedFilters.category.some(category =>
+                                    productCategory.includes(category.toLowerCase())
+                                );
+
+                                if (!categoryMatch) {
+                                    shouldShow = false;
+                                }
+                            }
+
+                            // Check difficulty filter
+                            if (selectedFilters.difficulty.length > 0 && shouldShow) {
+                                const productDifficulty = card.getAttribute('data-difficulty') || '';
+                                
+                                if (productDifficulty) {
+                                    const difficultyMatch = selectedFilters.difficulty.some(difficulty => 
+                                        productDifficulty.toLowerCase() === difficulty.toLowerCase()
+                                    );
+                                    
+                                    if (!difficultyMatch) {
+                                        shouldShow = false;
+                                    }
+                                }
+                            }
+
+                            // Check light filter
+                            if (selectedFilters.light.length > 0 && shouldShow) {
+                                const productLight = card.getAttribute('data-light') || '';
+                                
+                                if (productLight) {
+                                    const lightMatch = selectedFilters.light.some(light => 
+                                        productLight.toLowerCase() === light.toLowerCase()
+                                    );
+                                    
+                                    if (!lightMatch) {
+                                        shouldShow = false;
+                                    }
+                                }
+                            }
+
+                            // Check price filter
+                            if (shouldShow) {
+                                const priceText = card.querySelector('.product-price').textContent;
+                                const price = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+                                if (price < minPrice || price > maxPrice) {
+                                    shouldShow = false;
+                                }
+                            }
+
+                            // Update visibility
+                            card.style.display = shouldShow ? 'block' : 'none';
+                            if (shouldShow) visibleCount++;
+                        });
+
+                        // Update product count
+                        if (productCount) {
+                            productCount.textContent = visibleCount;
+                        }
+                    }
+                }
+
+                // Initial update
+                updateActiveFilters();
+            }
+
+            // Price range slider functionality
+            function initPriceRangeSlider() {
+                const minPriceInput = document.getElementById('min-price');
+                const maxPriceInput = document.getElementById('max-price');
+                const minPriceRange = document.getElementById('price-range-min');
+                const maxPriceRange = document.getElementById('price-range-max');
+                const sliderRange = document.querySelector('.slider-range');
+
+                if (minPriceInput && maxPriceInput && minPriceRange && maxPriceRange) {
+                    // Function to update slider UI
+                    function updateSliderUI() {
+                        if (sliderRange) {
+                            const minVal = Number.parseInt(minPriceRange.value);
+                            const maxVal = Number.parseInt(maxPriceRange.value);
+                            const minPercent = (minVal / Number.parseInt(minPriceRange.max)) * 100;
+                            const maxPercent = (maxVal / Number.parseInt(maxPriceRange.max)) * 100;
+
+                            sliderRange.style.left = minPercent + "%";
+                            sliderRange.style.width = maxPercent - minPercent + "%";
+                        }
+                    }
+
+                    // Function to handle min range input change
+                    function handleMinRangeChange() {
+                        const minVal = Number.parseInt(minPriceRange.value);
+                        const maxVal = Number.parseInt(maxPriceRange.value);
+
+                        if (minVal > maxVal - 5) {
+                            minPriceRange.value = maxVal - 5;
+                        }
+
+                        minPriceInput.value = minPriceRange.value;
+                        updateSliderUI();
+                        filterProducts();
+                    }
+
+                    // Function to handle max range input change
+                    function handleMaxRangeChange() {
+                        const minVal = Number.parseInt(minPriceRange.value);
+                        const maxVal = Number.parseInt(maxPriceRange.value);
+
+                        if (maxVal < minVal + 5) {
+                            maxPriceRange.value = minVal + 5;
+                        }
+
+                        maxPriceInput.value = maxPriceRange.value;
+                        updateSliderUI();
+                        filterProducts();
+                    }
+
+                    // Function to handle min price input change
+                    function handleMinPriceChange() {
+                        let minVal = Number.parseInt(minPriceInput.value);
+                        const maxVal = Number.parseInt(maxPriceInput.value);
+
+                        if (isNaN(minVal)) {
+                            minVal = 0;
+                        }
+
+                        if (minVal > maxVal - 5) {
+                            minVal = maxVal - 5;
+                        }
+
+                        if (minVal < 0) {
+                            minVal = 0;
+                        }
+
+                        minPriceInput.value = minVal;
+                        minPriceRange.value = minVal;
+                        updateSliderUI();
+                        filterProducts();
+                    }
+
+                    // Function to handle max price input change
+                    function handleMaxPriceChange() {
+                        let maxVal = Number.parseInt(maxPriceInput.value);
+                        const minVal = Number.parseInt(minPriceInput.value);
+
+                        if (isNaN(maxVal)) {
+                            maxVal = 100;
+                        }
+
+                        if (maxVal < minVal + 5) {
+                            maxVal = minVal + 5;
+                        }
+
+                        if (maxVal > Number.parseInt(maxPriceRange.max)) {
+                            maxVal = Number.parseInt(maxPriceRange.max);
+                        }
+
+                        maxPriceInput.value = maxVal;
+                        maxPriceRange.value = maxVal;
+                        updateSliderUI();
+                        filterProducts();
+                    }
+
+                    // Add event listeners
+                    minPriceRange.addEventListener("input", handleMinRangeChange);
+                    maxPriceRange.addEventListener("input", handleMaxRangeChange);
+                    minPriceInput.addEventListener("change", handleMinPriceChange);
+                    maxPriceInput.addEventListener("change", handleMaxPriceChange);
+                }
+            }
+
+            // Product sorting functionality
+            function initProductSorting() {
+                const sortSelect = document.getElementById('sort-select');
+                const productGrid = document.querySelector('.product-grid');
+
+                if (sortSelect && productGrid) {
+                    sortSelect.addEventListener('change', function () {
+                        const sortValue = this.value;
+                        const productCards = Array.from(productGrid.querySelectorAll('.product-card'));
+
+                        // Sort products based on selected option
+                        productCards.sort((a, b) => {
+                            if (sortValue === 'price-low') {
+                                const priceA = parseFloat(a.querySelector('.product-price').textContent.replace(/[^0-9.]/g, ''));
+                                const priceB = parseFloat(b.querySelector('.product-price').textContent.replace(/[^0-9.]/g, ''));
+                                return priceA - priceB;
+                            } else if (sortValue === 'price-high') {
+                                const priceA = parseFloat(a.querySelector('.product-price').textContent.replace(/[^0-9.]/g, ''));
+                                const priceB = parseFloat(b.querySelector('.product-price').textContent.replace(/[^0-9.]/g, ''));
+                                return priceB - priceA;
+                            } else if (sortValue === 'name-asc') {
+                                const nameA = a.querySelector('.product-title').textContent;
+                                const nameB = b.querySelector('.product-title').textContent;
+                                return nameA.localeCompare(nameB);
+                            } else if (sortValue === 'name-desc') {
+                                const nameA = a.querySelector('.product-title').textContent;
+                                const nameB = b.querySelector('.product-title').textContent;
+                                return nameB.localeCompare(nameA);
+                            } else if (sortValue === 'newest') {
+                                // For demo, we'll sort by ID (higher IDs are newer)
+                                const idA = parseInt(a.querySelector('.add-to-cart-btn').getAttribute('data-id'));
+                                const idB = parseInt(b.querySelector('.add-to-cart-btn').getAttribute('data-id'));
+                                return idB - idA;
+                            } else {
+                                // Featured (default) - sort by bestseller, then by rating
+                                const isBestsellerA = a.querySelector('.bestseller') !== null;
+                                const isBestsellerB = b.querySelector('.bestseller') !== null;
+
+                                if (isBestsellerA && !isBestsellerB) return -1;
+                                if (!isBestsellerA && isBestsellerB) return 1;
+                                return 0;
+                            }
+                        });
+
+                        // Reorder products in the DOM
+                        productCards.forEach(card => {
+                            productGrid.appendChild(card);
+                        });
+                    });
+                }
+            }
+
+            // Product modal functionality
+            function initProductModal() {
+                const modal = document.getElementById('product-modal');
+                const modalBody = modal ? modal.querySelector('.product-modal-body') : null;
+                const closeButton = modal ? modal.querySelector('.close-modal') : null;
+                const quickViewButtons = document.querySelectorAll('.quick-view-btn');
+
+                if (modal && modalBody && closeButton && quickViewButtons.length > 0) {
+                    quickViewButtons.forEach(button => {
+                        button.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            const productName = this.getAttribute('data-product');
+                            const productCard = this.closest('.product-card');
+                            const productImage = productCard.querySelector('.product-image img');
+                            const imageSrc = productImage.getAttribute('src');
+
+                            // For demo purposes, we'll just show a simple modal with the product info
+                            const productTitle = productCard.querySelector('.product-title').textContent;
+                            const productCategory = productCard.querySelector('.product-category').textContent;
+                            const productPrice = productCard.querySelector('.product-price').textContent;
+
+                            modalBody.innerHTML = `
+                                <div class="product-modal-grid">
+                                    <div class="product-modal-gallery">
+                                        <div class="product-main-image">
+                                            <img src="${imageSrc}" alt="${productTitle}">
+                                        </div>
+                                    </div>
+                                    <div class="product-modal-info">
+                                        <h2>${productTitle}</h2>
+                                        <p class="product-scientific">${getScientificName(productName)}</p>
+                                        
+                                        <div class="product-rating">
+                                            ${productCard.querySelector('.product-rating').innerHTML}
+                                        </div>
+                                        
+                                        <div class="product-price-container">
+                                            <p class="product-price">${productPrice}</p>
+                                        </div>
+                                        
+                                        <div class="product-description">
+                                            <p>${getProductDescription(productName)}</p>
+                                        </div>
+                                        <div class="product-actions">
+                                            <button class="btn btn-primary add-to-cart-btn-modal" data-id="${productCard.querySelector('.add-to-cart-btn').getAttribute('data-id')}" data-name="${productTitle}" data-price="${productCard.querySelector('.add-to-cart-btn').getAttribute('data-price')}">
+                                                <i class="fas fa-shopping-basket"></i> ADD TO CART
+                                            </button>
+                                            <button class="btn btn-outline wishlist-btn">
+                                                <i class="far fa-heart"></i> ADD TO WISHLIST
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="product-meta">
+                                            <p><strong>Categories:</strong> ${productCategory}</p>
+                                            <p><strong>Growing Difficulty:</strong> ${productCard.getAttribute('data-difficulty') || 'Easy'}</p>
+                                            <p><strong>Light Requirements:</strong> ${getLightRequirement(productCard.getAttribute('data-light'))}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+
+                            // Show modal
+                            modal.classList.add('active');
+                            document.body.style.overflow = 'hidden';
+
+                            // Initialize quantity input
+                            const quantityInput = modalBody.querySelector('#product-quantity-input');
+                            const decreaseBtn = modalBody.querySelector('.quantity-decrease');
+                            const increaseBtn = modalBody.querySelector('.quantity-increase');
+
+                            if (quantityInput && decreaseBtn && increaseBtn) {
+                                decreaseBtn.addEventListener('click', () => {
+                                    const currentValue = parseInt(quantityInput.value);
+                                    if (currentValue > 1) {
+                                        quantityInput.value = currentValue - 1;
+                                    }
+                                });
+
+                                increaseBtn.addEventListener('click', () => {
+                                    const currentValue = parseInt(quantityInput.value);
+                                    if (currentValue < 10) {
+                                        quantityInput.value = currentValue + 1;
+                                    }
+                                });
+                            }
+
+                            // Initialize add to cart button
+                            const addToCartBtn = modalBody.querySelector('.add-to-cart-btn-modal');
+                            if (addToCartBtn) {
+                                addToCartBtn.addEventListener('click', function () {
+                                    const id = this.getAttribute('data-id');
+                                    const name = this.getAttribute('data-name');
+                                    const price = parseFloat(this.getAttribute('data-price'));
+                                    const quantity = parseInt(quantityInput.value);
+
+                                    addToCart(id, name, price, quantity);
+                                    showNotification(`${name} added to cart!`, 'success');
+
+                                    // Close modal
+                                    modal.classList.remove('active');
+                                    document.body.style.overflow = '';
+                                });
+                            }
+                        });
+                    });
+
+                    // Close modal when close button is clicked
+                    closeButton.addEventListener('click', () => {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+
+                    // Close modal when clicking outside of modal content
+                    modal.addEventListener('click', (event) => {
+                        if (event.target === modal) {
+                            modal.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
+                    });
+
+                    // Close modal when Escape key is pressed
+                    document.addEventListener('keydown', (event) => {
+                        if (event.key === 'Escape' && modal.classList.contains('active')) {
+                            modal.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
+                    });
+                }
+            }
+
+            // Pagination functionality
+            function initPagination() {
+                const paginationButtons = document.querySelectorAll('.pagination-btn');
+
+                if (paginationButtons.length > 0) {
+                    paginationButtons.forEach((button) => {
+                        button.addEventListener('click', function () {
+                            // Remove active class from all buttons
+                            paginationButtons.forEach((btn) => btn.classList.remove('active'));
+
+                            // Add active class to clicked button
+                            this.classList.add('active');
+
+                            // In a real app, this would load the next page of products
+                            // For demo purposes, we'll just scroll to the top of the product grid
+                            const productGrid = document.querySelector('.product-grid');
+                            if (productGrid) {
+                                window.scrollTo({
+                                    top: productGrid.offsetTop - 100,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        });
+                    });
+                }
+            }
+
+            // Helper function to get scientific name
+            function getScientificName(productName) {
+                const scientificNames = {
+                    'lavender': 'Lavandula angustifolia',
+                    'mint': 'Mentha',
+                    'chamomile': 'Matricaria chamomilla',
+                    'ashwagandha': 'Withania somnifera',
+                    'gotu-kola': 'Centella asiatica',
+                    'yarrow': 'Achillea millefolium',
+                    'feverfew': 'Tanacetum parthenium',
+                    'sage': 'Salvia officinalis',
+                    'bay-laurel': 'Laurus nobilis',
+                    'tarragon': 'Artemisia dracunculus',
+                    'winter-savory': 'Satureja montana',
+                    'bergamot': 'Monarda didyma',
+                    'catnip': 'Nepeta cataria',
+                    'sweet-woodruff': 'Galium odoratum',
+                    'anise-hyssop': 'Agastache foeniculum',
+                    'purple-basil': 'Ocimum basilicum \'Purpurascens\'',
+                    'pineapple-sage': 'Salvia elegans',
+                    'red-veined-sorrel': 'Rumex sanguineus',
+                    'variegated-oregano': 'Origanum vulgare \'Variegata\'',
+                    'parsley': 'Petroselinum crispum',
+                    'mustard-greens': 'Brassica juncea',
+                    'lovage': 'Levisticum officinale',
+                    'arugula': 'Eruca vesicaria',
+                    'borage': 'Borago officinalis',
+                    'chervil': 'Anthriscus cerefolium',
+                    'valerian': 'Valeriana officinalis',
+                    'sunflower': 'Helianthus annuus'
+                };
+
+                return scientificNames[productName] || 'Scientific name not available';
+            }
+
+            // Helper function to get product description
+            function getProductDescription(productName) {
+                const descriptions = {
+                    'lavender': 'Lavender is a fragrant herb known for its beautiful purple flowers and calming aroma. This plant is perfect for gardens, containers, and even indoor growing with proper care.',
+                    'mint': 'Mint is a versatile and aromatic herb with bright green leaves. It\'s known for its refreshing flavor and cooling sensation, making it popular in culinary and medicinal applications.',
+                    'chamomile': 'Chamomile is a daisy-like herb with small white flowers and feathery leaves. It has a pleasant apple-like scent and is widely used for its calming and medicinal properties.',
+                    'ashwagandha': 'Ashwagandha is an adaptogenic herb used in Ayurvedic medicine. It helps the body manage stress and is known for its rejuvenating properties.',
+                    'gotu-kola': 'Gotu Kola is a medicinal herb used in traditional Chinese and Ayurvedic medicine. It\'s known for supporting cognitive function and promoting skin health.',
+                    'yarrow': 'Yarrow is a flowering plant with feathery leaves and clusters of small, daisy-like flowers. It has been used medicinally for thousands of years to treat wounds and reduce inflammation.',
+                    'feverfew': 'Feverfew is a medicinal herb with daisy-like flowers. It has been traditionally used to prevent migraines and reduce fever, as its name suggests.',
+                    'sage': 'Sage is an evergreen shrub with grayish-green leaves and purple-blue flowers. It has a savory, slightly peppery flavor and is used in cooking, medicine, and as an ornamental plant.',
+                    'bay-laurel': 'Bay Laurel is an aromatic evergreen tree with glossy leaves. The leaves are used as a culinary herb in soups, stews, and other dishes.',
+                    'tarragon': 'Tarragon is a perennial herb with long, narrow leaves. It has an anise-like flavor and is commonly used in French cuisine.',
+                    'winter-savory': 'Winter Savory is a perennial herb with a peppery flavor. It\'s used in cooking, particularly with beans and meat dishes.',
+                    'bergamot': 'Bergamot, also known as Bee Balm, is a flowering plant that attracts pollinators. It has a citrusy, minty aroma and can be used in teas.',
+                    'catnip': 'Catnip is a perennial herb known for its effects on cats. It also has a minty flavor and can be used in teas and herbal remedies.',
+                    'sweet-woodruff': 'Sweet Woodruff is a low-growing perennial herb with a sweet, hay-like fragrance when dried. It\'s used in potpourris and as a flavoring in May wine.',
+                    'anise-hyssop': 'Anise Hyssop is a perennial herb with purple-blue flowers. It has a sweet, anise-like flavor and is used in teas and cooking.',
+                    'purple-basil': 'Purple Basil is a decorative variety of basil with deep purple leaves. It has a slightly spicy flavor with clove-like notes.',
+                    'pineapple-sage': 'Pineapple Sage is a perennial herb with bright red flowers. As the name suggests, it has a fruity pineapple scent and flavor.',
+                    'red-veined-sorrel': 'Red-veined Sorrel is a decorative herb with green leaves and striking red veins. It has a tangy, lemony flavor.',
+                    'variegated-oregano': 'Variegated Oregano is a decorative variety with green and white leaves. It has the same aromatic flavor as regular oregano.',
+                    'parsley': 'Parsley is a versatile culinary herb with bright green, curly or flat leaves. It\'s rich in vitamins and adds a fresh flavor to many dishes.',
+                    'mustard-greens': 'Mustard Greens are leafy vegetables with a peppery, tangy flavor. They\'re nutritious and commonly used in salads and stir-fries.',
+                    'lovage': 'Lovage is a tall perennial herb with a strong celery-like flavor. All parts of the plant are usable in cooking.',
+                    'arugula': 'Arugula is a leafy green with a peppery, slightly bitter flavor. It\'s commonly used in salads and as a pizza topping.',
+                    'borage': 'Borage is a flowering herb with star-shaped blue flowers. It attracts pollinators and has cucumber-flavored leaves.',
+                    'chervil': 'Chervil is a delicate annual herb with a mild anise flavor. It\'s used in French cuisine and makes an excellent companion plant.',
+                    'valerian': 'Valerian is a perennial flowering plant known for its sedative effects. It also helps improve soil health in the garden.',
+                    'sunflower': 'Sunflower is a tall annual with large, bright yellow flowers. It attracts pollinators and birds, and produces edible seeds.'
+                };
+
+                return descriptions[productName] || 'Description not available';
+            }
+
+            // Helper function to get light requirement text
+            function getLightRequirement(lightCode) {
+                const lightRequirements = {
+                    'full-sun': 'Full Sun',
+                    'partial-shade': 'Partial Shade',
+                    'full-shade': 'Full Shade'
+                };
+
+                return lightRequirements[lightCode] || 'Not specified';
+            }
+
+            // Show notification
+            function showNotification(message, type = 'info') {
+                // Check if notification container exists, create if not
+                let notificationContainer = document.querySelector('.notification-container');
+
+                if (!notificationContainer) {
+                    notificationContainer = document.createElement('div');
+                    notificationContainer.className = 'notification-container';
+                    document.body.appendChild(notificationContainer);
+                }
+
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = `notification notification-${type}`;
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <i class="notification-icon fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+                        <p>${message}</p>
+                    </div>
+                    <button class="notification-close"><i class="fas fa-times"></i></button>
+                `;
+
+                // Add notification to container
+                notificationContainer.appendChild(notification);
+
+                // Show notification with animation
+                setTimeout(() => {
+                    notification.classList.add('show');
+                }, 10);
+
+                // Set up close button
+                const closeButton = notification.querySelector('.notification-close');
+                closeButton.addEventListener('click', () => {
+                    notification.classList.remove('show');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                });
+
+                // Auto-remove after 5 seconds
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.classList.remove('show');
+                        setTimeout(() => {
+                            notification.remove();
+                        }, 300);
+                    }
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+
+</html>

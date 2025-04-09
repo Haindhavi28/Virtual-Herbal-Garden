@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Garden - Virtual Herbal Garden</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        /* Pixel art style */
+        :root {
+            --pixel-size: 2px;
+            --primary-color: #5a9c47;
+            --secondary-color: #3d6b2f;
+            --accent-color: #ff6b6b;
+            --text-color: #333;
+            --bg-color: #f5f5f5;
+            --card-bg: #ffffff;
+            --border-radius: 0;
+        }
+        
+        body {
+            font-family: 'VT323', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            image-rendering: pixelated;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        
+        .btn, button {
+            font-family: 'Press Start 2P', cursive;
+            border-radius: var(--border-radius);
+            border: 4px solid #000;
+            padding: 8px 16px;
+            font-size: 16px;
+            text-transform: uppercase;
+            position: relative;
+            box-shadow: 4px 4px 0px #000;
+            transition: all 0.1s ease;
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn:hover, button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000;
+        }
+        
+        /* Header */
+        .header {
+            background-color: var(--primary-color);
+            border-bottom: 4px solid #000;
+            padding: 10px 0;
+        }
+        
+        .logo span {
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        /* Garden Hero */
+        .garden-hero {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 40px 0;
+            border-bottom: 4px solid #000;
+            text-align: center;
+        }
+        
+        /* Garden Controls */
+        .garden-controls {
+            padding: 20px 0;
+            border-bottom: 4px solid #000;
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .search-filter-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        
+        .search-container {
+            position: relative;
+            width: 300px;
+        }
+        
+        #herb-search {
+            width: 100%;
+            padding: 10px;
+            border: 4px solid #000;
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+            background-color: white;
+        }
+        
+        #search-btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 40px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-left: 4px solid #000;
+            cursor: pointer;
+        }
+        
+        .filter-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        #herb-filter {
+            padding: 8px;
+            border: 4px solid #000;
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            background-color: white;
+        }
+        
+        /* Garden Map View */
+        .garden-map-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            margin: 30px 0;
+            border: 4px solid #000;
+            background-color: #e8f5e9;
+            overflow: hidden;
+        }
+        
+        .garden-map {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-image: url('garden-map.webp');
+            background-size: cover;
+            background-position: center;
+            image-rendering: pixelated;
+        }
+        
+        .herb-point {
+            position: absolute;
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.2s ease;
+        }
+        
+        .herb-point img {
+            width: 120px;
+            height: 120px;
+            border: 4px solid #442211;
+            background-color: white;
+            image-rendering: pixelated;
+            object-fit: cover;
+        }
+        
+        .herb-point:hover {
+            transform: scale(1.1);
+            z-index: 20;
+        }
+        
+        .herb-point-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            border: 4px solid #000;
+            padding: 8px 12px;
+            white-space: nowrap;
+            display: none;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+        }
+        
+        .herb-point:hover .herb-point-tooltip {
+            display: block;
+        }
+        
+        .map-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .map-zoom-in, .map-zoom-out, .map-reset {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border: 4px solid #000;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        /* Herb Modal */
+        .herb-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .herb-modal-content {
+            background-color: white;
+            border: 4px solid #000;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 3px solid #000;
+        }
+        
+        .herb-modal-body {
+            padding: 30px;
+        }
+        
+        .herb-modal-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .herb-modal-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+        
+        .herb-modal-image img {
+            width: 100%;
+            border: 4px solid #000;
+            image-rendering: pixelated;
+        }
+        
+        .herb-info-section {
+            margin-bottom: 20px;
+        }
+        
+        .herb-info-section h3 {
+            border-bottom: 2px solid #000;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .herb-modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #000;
+        }
+        
+        .herb-price-value {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--accent-color);
+            font-size: 18px;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--secondary-color);
+            color: white;
+            border-top: 4px solid #000;
+            padding: 20px 0;
+        }
+        
+        /* Back to Top */
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border: 3px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;  
+        }
+        
+        /* Notification */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .notification {
+            padding: 15px;
+            border: 3px solid #000;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .notification-icon {
+            font-size: 20px;
+        }
+        
+        .notification-success {
+            border-color: #5a9c47;
+        }
+        
+        .notification-error {
+            border-color: #ff6b6b;
+        }
+        
+        .notification-info {
+            border-color: #4d90fe;
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .herb-modal-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .herb-point img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .search-filter-container {
+                flex-direction: column;
+            }
+            
+            .search-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.svg" alt="Virtual Herbal Garden Logo">
+                    <span>Virtual Herbal Garden</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="garden.html">Explore Garden</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <a href="login.html" class="login-btn">Login</a>
+                <button class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Garden Hero Section -->
+    <section class="garden-hero">
+        <div class="container">
+            <div class="garden-hero-content">
+                <h1>INTERACTIVE HERBAL GARDEN</h1>
+                <p>Click on any plant family in our virtual garden to learn about its medicinal uses and growing information.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Garden Controls -->
+    <section class="garden-controls">
+        <div class="container">
+            <div class="search-filter-container">
+                <div class="search-container">
+                    <input type="text" id="herb-search" placeholder="SEARCH PLANTS...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="filter-container">
+                    <label for="herb-filter">FILTER:</label>
+                    <select id="herb-filter">
+                        <option value="all">ALL FAMILIES</option>
+                        <option value="nightshade">NIGHTSHADE</option>
+                        <option value="mint">MINT</option>
+                        <option value="daisy">DAISY</option>
+                        <option value="grass">GRASS</option>
+                        <option value="parsley">PARSLEY</option>
+                        <option value="ginger">GINGER</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Garden -->
+    <section class="interactive-garden">
+        <div class="container">
+            <!-- Garden Map View -->
+            <div class="garden-map-container">
+                <div class="garden-map">
+                    <!-- Nightshade Family -->
+                    <div class="herb-point" style="top: 25%; left: 20%;" data-herb="nightshade">
+                        <img src="nightshade family.jpg" alt="Nightshade Family">
+                        <div class="herb-point-tooltip">
+                            <h4>NIGHTSHADE FAMILY</h4>
+                            <p>CLICK TO EXPLORE</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Mint Family -->
+                    <div class="herb-point" style="top: 40%; left: 35%;" data-herb="mint">
+                        <img src="Mint family .webp" alt="Mint Family">
+                        <div class="herb-point-tooltip">
+                            <h4>MINT FAMILY</h4>
+                            <p>CLICK TO EXPLORE</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Daisy Family -->
+                    <div class="herb-point" style="top: 60%; left: 25%;" data-herb="daisy">
+                        <img src="daisy family.webp" alt="Daisy Family">
+                        <div class="herb-point-tooltip">
+                            <h4>DAISY FAMILY</h4>
+                            <p>CLICK TO EXPLORE</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Grass Family -->
+                    <div class="herb-point" style="top: 30%; left: 65%;" data-herb="grass">
+                        <img src="grass family.png" alt="Grass Family">
+                        <div class="herb-point-tooltip">
+                            <h4>GRASS FAMILY</h4>
+                            <p>CLICK TO EXPLORE</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Parsley Family -->
+                    <div class="herb-point" style="top: 50%; left: 80%;" data-herb="parsley">
+                        <img src="parsley family.png" alt="Parsley Family">
+                        <div class="herb-point-tooltip">
+                            <h4>PARSLEY FAMILY</h4>
+                            <p>CLICK TO EXPLORE</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Ginger Family -->
+                    <div class="herb-point" style="top: 70%; left: 60%;" data-herb="ginger">
+                        <img src="ginger family.png" alt="Ginger Family">
+                        <div class="herb-point-tooltip">
+                            <h4>GINGER FAMILY</h4>
+                            <p>CLICK TO EXPLORE</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="map-controls">
+                    <button class="map-zoom-in"><i class="fas fa-plus"><img src="zoom in.jpg"></i></button>
+                    <button class="map-zoom-out"><i class="fas fa-minus"><img src="zoom out.jpg"></i></button>
+                    <button class="map-reset"><i class="fas fa-sync-alt"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Herb Modal -->
+    <div class="herb-modal" id="herb-modal">
+        <div class="herb-modal-content">
+            <button class="close-modal"><i class="fas fa-times"></i></button>
+            <div class="herb-modal-body">
+                <!-- Content will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <img src="logo.svg" alt="Virtual Herbal Garden Logo">
+                    <h3>Virtual Herbal Garden</h3>
+                    <p>Healing the world with the power of Herbs...</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="garden.html">Explore Garden</a></li>
+                            <li><a href="shop.html">Shop</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column"></div>
+
+                    <div class="footer-links-column">
+                        <h4>Contact Us</h4>
+                        <ul class="contact-info">
+                            <li><i class="fas fa-map-marker-alt"></i> 15 ,Mand Street ,45, Heer Heights, NandiniGarh, Goa, Rajkot-499949</li>
+                            <li><i class="fas fa-phone"></i> +91 8398960956</li>
+                        </ul>
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Virtual Herbal Garden. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Back to Top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="garden.js"></script>
+</body>
+</html> 

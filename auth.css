@@ -1,0 +1,309 @@
+/* 
+* Virtual Herbal Garden - Authentication Pages Stylesheet
+* This file contains styles for login, registration, and account pages
+*/
+
+/* ===== AUTH SECTION ===== */
+.auth-section {
+    padding: var(--spacing-xxl) 0;
+    background-color: var(--color-background-alt);
+  }
+  
+  .auth-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xxl);
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: var(--color-background);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+  
+  .auth-image {
+    height: 100%;
+    background-color: var(--color-primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+  }
+  
+  .auth-image img {
+    max-width: 100%;
+    max-height: 400px;
+  }
+  
+  .auth-form-container {
+    padding: var(--spacing-xl);
+  }
+  
+  .auth-tabs {
+    display: flex;
+    margin-bottom: var(--spacing-xl);
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  .auth-tab {
+    flex: 1;
+    padding: var(--spacing-md) 0;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-light);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+    position: relative;
+  }
+  
+  .auth-tab::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width var(--transition-fast);
+  }
+  
+  .auth-tab:hover {
+    color: var(--color-primary);
+  }
+  
+  .auth-tab.active {
+    color: var(--color-primary);
+  }
+  
+  .auth-tab.active::after {
+    width: 100%;
+  }
+  
+  .auth-form {
+    display: none;
+  }
+  
+  .auth-form.active {
+    display: block;
+  }
+  
+  .auth-form h2 {
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .auth-form p {
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .form-group {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 500;
+  }
+  
+  .input-icon-wrapper {
+    position: relative;
+  }
+  
+  .input-icon-wrapper i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-light);
+  }
+  
+  .input-icon-wrapper input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    padding-left: 2.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color var(--transition-fast);
+  }
+  
+  .input-icon-wrapper input:focus {
+    border-color: var(--color-primary);
+  }
+  
+  .toggle-password {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--color-text-light);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+  }
+  
+  .toggle-password:hover {
+    color: var(--color-primary);
+  }
+  
+  .form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+  
+  .remember-me,
+  .terms-agreement {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+  }
+  
+  .remember-me input[type="checkbox"],
+  .terms-agreement input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-primary);
+  }
+  
+  .forgot-password {
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    transition: color var(--transition-fast);
+  }
+  
+  .forgot-password:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+  }
+  
+  .btn-block {
+    width: 100%;
+  }
+  
+  .social-login {
+    margin-top: var(--spacing-xl);
+    text-align: center;
+  }
+  
+  .social-login p {
+    position: relative;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .social-login p::before,
+  .social-login p::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background-color: var(--color-border);
+  }
+  
+  .social-login p::before {
+    left: 0;
+  }
+  
+  .social-login p::after {
+    right: 0;
+  }
+  
+  .social-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+  }
+  
+  .social-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+    border: none;
+  }
+  
+  .social-btn.google {
+    background-color: #f2f2f2;
+    color: #757575;
+  }
+  
+  .social-btn.google:hover {
+    background-color: #e6e6e6;
+  }
+  
+  .social-btn.facebook {
+    background-color: #3b5998;
+    color: white;
+  }
+  
+  .social-btn.facebook:hover {
+    background-color: #344e86;
+  }
+  
+  /* Password Strength Meter */
+  .password-strength {
+    margin-top: var(--spacing-xs);
+  }
+  
+  .strength-meter {
+    height: 4px;
+    background-color: var(--color-border);
+    border-radius: 2px;
+    margin-bottom: var(--spacing-xs);
+    overflow: hidden;
+  }
+  
+  .strength-meter span {
+    display: block;
+    height: 100%;
+    width: 25%;
+    background-color: #dc3545;
+    border-radius: 2px;
+    transition: width var(--transition-fast), background-color var(--transition-fast);
+  }
+  
+  .strength-text {
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+    margin-bottom: 0;
+  }
+  
+  /* ===== RESPONSIVE STYLES ===== */
+  @media (max-width: 992px) {
+    .auth-container {
+      grid-template-columns: 1fr;
+    }
+  
+    .auth-image {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .auth-form-container {
+      padding: var(--spacing-lg);
+    }
+  
+    .social-buttons {
+      flex-direction: column;
+    }
+  }
+  
+  

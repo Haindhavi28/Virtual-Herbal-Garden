@@ -1,0 +1,551 @@
+/* 
+* Virtual Herbal Garden - Garden Page Stylesheet
+* This file contains styles specific to the interactive garden page
+*/
+
+/* ===== GARDEN HERO SECTION ===== */
+.garden-hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/garden-hero-bg.svg");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: var(--spacing-xxl) 0;
+  text-align: center;
+}
+
+.garden-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.garden-hero h1 {
+  color: white;
+  font-size: 3rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.garden-hero p {
+  font-size: 1.125rem;
+  opacity: 0.9;
+}
+
+/* ===== GARDEN CONTROLS ===== */
+.garden-controls {
+  background-color: var(--color-background);
+  padding: var(--spacing-lg) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.garden-controls .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.search-filter-container {
+  display: flex;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.search-container {
+  position: relative;
+  width: 300px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  padding-right: 3rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.search-container input:focus {
+  border-color: var(--color-primary);
+}
+
+.search-container button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 3rem;
+  background: none;
+  border: none;
+  color: var(--color-text-light);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.search-container button:hover {
+  color: var(--color-primary);
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.filter-container label {
+  font-weight: 500;
+}
+
+.filter-container select {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  font-size: 1rem;
+  outline: none;
+  cursor: pointer;
+  background-color: var(--color-background);
+  transition: border-color var(--transition-fast);
+}
+
+.filter-container select:focus {
+  border-color: var(--color-primary);
+}
+
+.view-toggle {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.view-btn {
+  padding: 0.5rem 1rem;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.view-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.view-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+/* ===== INTERACTIVE GARDEN ===== */
+.interactive-garden {
+  padding: var(--spacing-xl) 0 var(--spacing-xxl);
+}
+
+/* Grid View */
+.garden-grid-view,
+.garden-map-view {
+  display: none;
+}
+
+.garden-grid-view.active,
+.garden-map-view.active {
+  display: block;
+}
+
+.herbs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.herb-item {
+  transition: transform var(--transition-fast);
+}
+
+.herb-card {
+  background-color: var(--color-background);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  height: 100%;
+  transition: box-shadow var(--transition-fast);
+}
+
+.herb-item:hover {
+  transform: translateY(-5px);
+}
+
+.herb-item:hover .herb-card {
+  box-shadow: var(--shadow-lg);
+}
+
+.herb-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.herb-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.herb-item:hover .herb-image img {
+  transform: scale(1.05);
+}
+
+.herb-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.herb-item:hover .herb-hover {
+  opacity: 1;
+}
+
+.quick-view-btn {
+  padding: 0.5rem 1rem;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.quick-view-btn:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.herb-info {
+  padding: var(--spacing-md);
+}
+
+.herb-info h3 {
+  margin-bottom: var(--spacing-xs);
+  font-size: 1.25rem;
+}
+
+.herb-scientific {
+  font-style: italic;
+  color: var(--color-text-lighter);
+  margin-bottom: var(--spacing-sm);
+  font-size: 0.875rem;
+}
+
+.herb-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.herb-category {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius-sm);
+  font-weight: 500;
+}
+
+.herb-category.medicinal {
+  background-color: rgba(74, 124, 89, 0.1);
+  color: var(--color-primary);
+}
+
+.herb-category.culinary {
+  background-color: rgba(244, 185, 66, 0.1);
+  color: var(--color-accent-dark);
+}
+
+.herb-category.aromatic {
+  background-color: rgba(147, 112, 219, 0.1);
+  color: #7952b3;
+}
+
+.herb-category.decorative {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+/* Map View */
+.garden-map-container {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  background-color: var(--color-background);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.garden-map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.map-base {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.herb-point {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.herb-point-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast);
+}
+
+.herb-point-icon img {
+  width: 24px;
+  height: 24px;
+}
+
+.herb-point:hover .herb-point-icon {
+  transform: scale(1.1);
+}
+
+.herb-point-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  width: 150px;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-fast), visibility var(--transition-fast);
+  pointer-events: none;
+}
+
+.herb-point-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+}
+
+.herb-point:hover .herb-point-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.herb-point-tooltip h4 {
+  margin-bottom: var(--spacing-xs);
+  font-size: 1rem;
+}
+
+.herb-point-tooltip p {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  margin-bottom: 0;
+}
+
+.map-controls {
+  position: absolute;
+  bottom: var(--spacing-md);
+  right: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.map-controls button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  border: none;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.map-controls button:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* ===== HERB MODAL ===== */
+.herb-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-fast), visibility var(--transition-fast);
+}
+
+.herb-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.herb-modal-content {
+  background-color: var(--color-background);
+  border-radius: var(--border-radius-lg);
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform var(--transition-fast);
+}
+
+.herb-modal.active .herb-modal-content {
+  transform: translateY(0);
+}
+
+.close-modal {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--color-text-light);
+  transition: color var(--transition-fast);
+  z-index: 10;
+}
+
+.close-modal:hover {
+  color: var(--color-primary);
+}
+
+.herb-modal-body {
+  padding: var(--spacing-xl);
+}
+
+/* ===== PAGINATION ===== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xl);
+}
+
+.pagination-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.pagination-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.pagination-btn.active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+.pagination-btn.next,
+.pagination-btn.prev {
+  width: auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+@media (max-width: 992px) {
+  .garden-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .garden-controls .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-filter-container {
+    width: 100%;
+  }
+
+  .search-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .garden-hero h1 {
+    font-size: 2rem;
+  }
+
+  .garden-map-container {
+    height: 400px;
+  }
+}
+
+@media (max-width: 576px) {
+  .search-filter-container {
+    flex-direction: column;
+  }
+
+  .filter-container {
+    width: 100%;
+  }
+
+  .filter-container select {
+    width: 100%;
+  }
+}
+

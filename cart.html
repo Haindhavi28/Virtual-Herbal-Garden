@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Virtual Herbal Garden</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pixel-size: 2px;
+            --primary-color: #629554;
+            --secondary-color: #346b24;
+            --accent-color: #ff6b6b;
+            --text-color: #747272;
+            --bg-color: #f5f5f5;
+            --card-bg: #ffffff;
+            --border-radius: 0;
+        }
+
+        body {
+            font-family: 'VT323', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            image-rendering: pixelated;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+        }
+
+        .btn,
+        button {
+            font-family: 'Press Start 2P', cursive;
+            border-radius: var(--border-radius);
+            border: 4px solid #000;
+            padding: 8px 16px;
+            font-size: 16px;
+            text-transform: uppercase;
+            position: relative;
+            box-shadow: 4px 4px 0px #000;
+            transition: all 0.1s ease;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn:hover,
+        button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent-color);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 4px solid #000;
+            color: #000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header pixel style */
+        .header {
+            background-color: var(--primary-color);
+            border-bottom: 4px solid #000;
+        }
+
+        .logo span {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        /* Cart Page */
+        .cart-page {
+            padding: 40px 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #000;
+            padding-bottom: 20px;
+        }
+
+        .cart-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .cart-container {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        /* Empty Cart */
+        .empty-cart-message {
+            text-align: center;
+            padding: 40px;
+            border: 4px solid #000;
+            background-color: var(--card-bg);
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .empty-cart-icon i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        /* Cart Content */
+        .cart-content {
+            border: 4px solid #000;
+            background-color: var(--card-bg);
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        .cart-header {
+            display: none;
+            /* Hide on mobile */
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        @media (min-width: 768px) {
+            .cart-header {
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr 0.5fr;
+            }
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 2px dashed #000;
+        }
+
+        @media (min-width: 768px) {
+            .cart-item {
+                grid-template-columns: 100px 2fr 1fr 1fr 0.5fr;
+                align-items: center;
+            }
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            border: 4px solid #000;
+            image-rendering: pixelated;
+        }
+
+        .cart-item-name {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--accent-color);
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .quantity-decrease,
+        .quantity-increase {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            font-size: 14px;
+            background-color: var(--primary-color);
+            color: white;
+            border: 3px solid #000;
+        }
+
+        .quantity-input {
+            width: 40px;
+            height: 30px;
+            text-align: center;
+            border: 3px solid #000;
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+        }
+
+        .cart-item-total {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 14px;
+        }
+
+        .remove-item-btn {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .cart-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .clear-cart-btn {
+            background-color: var(--accent-color);
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .cart-summary,
+        .promo-code,
+        .need-help {
+            border: 4px solid #000;
+            background-color: var(--card-bg);
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .summary-divider {
+            height: 2px;
+            background-color: #000;
+            margin: 15px 0;
+        }
+
+        .cart-total {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 18px;
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        .payment-methods-icons {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+            font-size: 24px;
+        }
+
+        .promo-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .promo-input input {
+            flex: 1;
+            padding: 8px;
+            border: 3px solid #000;
+            font-family: 'VT323', monospace;
+        }
+
+        .need-help ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .need-help li {
+            margin-bottom: 10px;
+        }
+
+        .need-help a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .need-help i {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+
+        /* Notification */
+        .notification {
+            border: 4px solid #000;
+            background-color: var(--card-bg);
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--accent-color);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--secondary-color);
+            color: white;
+            border-top: 4px solid #000;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loader -->
+    <div class="loader-container">
+        <div class="loader">
+            <div class="leaf-loader">
+                <svg viewBox="0 0 100 100">
+                    <path d="M30,90 Q50,10 70,90" class="leaf-path"></path>
+                    <path d="M30,90 Q50,10 70,90" class="leaf-path leaf-path-2"></path>
+                </svg>
+            </div>
+            <p>Growing your experience...</p>
+        </div>
+    </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.svg" alt="Virtual Herbal Garden Logo">
+                    <span>Virtual Herbal Garden</span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="garden.html">Explore Garden</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <a href="login.html" class="login-btn">Login</a>
+                <button class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart Page -->
+    <section class="cart-page">
+        <div class="container">
+            <div class="page-header">
+                <h1>YOUR SHOPPING CART</h1>
+                <p>Review your items and proceed to checkout</p>
+            </div>
+
+            <div class="cart-container">
+                <!-- Empty Cart Message -->
+                <div class="empty-cart-message">
+                    <div class="empty-cart-icon">
+                        <i class="fas fa-shopping-basket"></i>
+                    </div>
+                    <h2>YOUR CART IS EMPTY</h2>
+                    <p>Looks like you haven't added any herbs to your cart yet.</p>
+                    <a href="shop.html" class="btn btn-primary">CONTINUE SHOPPING</a>
+                </div>
+
+                <!-- Cart Content -->
+                <div class="cart-content">
+                    <!-- Cart Header -->
+                    <div class="cart-header">
+                        <div class="cart-header-item product-col">PRODUCT</div>
+                        <div class="cart-header-item quantity-col">QTY</div>
+                        <div class="cart-header-item total-col">TOTAL</div>
+                        <div class="cart-header-item remove-col"></div>
+                    </div>
+
+                    <!-- Cart Items -->
+                    <div class="cart-items">
+                        <!-- Cart items will be loaded dynamically via JavaScript -->
+                    </div>
+
+                    <!-- Cart Actions -->
+                    <div class="cart-actions">
+                        <button class="clear-cart-btn btn">
+                            <i class="fas fa-trash-alt"></i> CLEAR CART
+                        </button>
+                        <a href="shop.html" class="btn btn-outline">
+                            <i class="fas fa-arrow-left"></i> CONTINUE SHOPPING
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Cart Summary -->
+                <div class="cart-sidebar">
+                    <div class="cart-summary">
+                        <h2>ORDER SUMMARY</h2>
+
+                        <div class="summary-row cart-subtotal">
+                            <span class="summary-label">SUBTOTAL</span>
+                            <span class="summary-value">$0.00</span>
+                        </div>
+
+                        <div class="summary-row cart-shipping">
+                            <span class="summary-label">SHIPPING</span>
+                            <span class="summary-value">$0.00</span>
+                        </div>
+
+                        <div class="summary-note">
+                            <p>FREE SHIPPING ON ORDERS OVER $50</p>
+                        </div>
+
+                        <div class="summary-divider"></div>
+
+                        <div class="summary-row cart-total">
+                            <span class="summary-label">TOTAL</span>
+                            <span class="summary-value">$0.00</span>
+                        </div>
+
+                        <button class="btn btn-primary btn-block checkout-btn">
+                            PROCEED TO CHECKOUT
+                        </button>
+
+                        <div class="payment-methods-icons">
+                            <span>WE ACCEPT</span>
+                            <div class="payment-icons">
+                                <i class="fab fa-cc-visa"></i>
+                                <i class="fab fa-cc-mastercard"></i>
+                                <i class="fab fa-cc-amex"></i>
+                                <i class="fab fa-cc-paypal"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Promo Code -->
+                    <div class="promo-code">
+                        <h3>PROMO CODE</h3>
+                        <form class="promo-form">
+                            <div class="promo-input">
+                                <input type="text" placeholder="ENTER PROMO CODE">
+                                <button type="submit" class="btn btn-outline">APPLY</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Need Help -->
+                    <div class="need-help">
+                        <h3>NEED HELP?</h3>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-envelope"></i> CONTACT US</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <img src="logo.svg" alt="Virtual Herbal Garden Logo">
+                    <h3>Virtual Herbal Garden</h3>
+                    <p>Healing the world with the power of Herbs...</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="garden.html">Explore Garden</a></li>
+                            <li><a href="shop.html">Shop</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column"></div>
+
+                    <div class="footer-links-column">
+                        <h4>Contact Us</h4>
+                        <ul class="contact-info">
+                            <li><i class="fas fa-map-marker-alt"></i> 15 ,Mand Street ,45, Heer Heights, NandiniGarh, Goa, Rajkot-499949</li>
+                            <li><i class="fas fa-phone"></i> +91 8398960956</li>
+                        </ul>
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Virtual Herbal Garden. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Back to Top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script src="animations.js"></script>
+    <script src="cart.js"></script>
+</body>
+
+</html>
